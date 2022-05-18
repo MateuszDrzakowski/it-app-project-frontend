@@ -1,6 +1,6 @@
 # ItAppProject
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.12.
+
 
 ## Development server
 
@@ -13,10 +13,10 @@ Adjust backenAddress accordingly to your backend running server in order to comm
 
 
 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-
-
-
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.12.
 
 ## Code scaffolding
 
