@@ -5,11 +5,12 @@
 ## Development server
 
 In order to run the application you need to install npm and then angular cli.
-Here's the link with instructions: https://angular.io/guide/setup-local
+Here's the link with instructions: https://angular.io/guide/setup-local.
+
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 In file src/app/offers/offer.service.ts is stored configuration to the backend server.
-Adjust backenAddress accordingly to your backend running server in order to communicate properly.
+Adjust backendAddress property accordingly to your backend running server address in order to communicate properly betwen the front and the backend.
 
 
 
