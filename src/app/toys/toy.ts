@@ -3,6 +3,6 @@ export interface IToy {
   toyName: string;
   toyType: string;
   description: string;
-  ageMinimum: string;
+  ageMinimum: number;
   imageUrl: string;
 }
