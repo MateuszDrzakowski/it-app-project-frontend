@@ -7,7 +7,7 @@
 In order to run the application you need to install npm and then angular cli.
 Here's the link with instructions: https://angular.io/guide/setup-local.
 
-When you have installed npm and ng, then nun `ng serve` within the project folder in order to run the application. 
+When you have installed npm and ng, then run `ng serve` within the project folder in order to run the application. 
 Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 In file src/app/offers/offer.service.ts is stored configuration to the backend server.
