@@ -1,0 +1,200 @@
+<div class="card">
+  <div class="card-header">
+    Edit offer: id:{{retrievedId}}
+  </div>
+
+  <div class="card-body">
+    <form novalidate
+          (ngSubmit)="save()"
+          [formGroup]="offerFormGroup">
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="toyNameId">Toy Name</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="toyNameId"
+                 type="text"
+                 placeholder="Toy Name (required)"
+                 formControlName="toyName"
+                 [ngClass]="{'is-invalid': displayMessage.toyName }"/>
+          <span class="invalid-feedback">
+            {{displayMessage.toyName}}
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="toyTypeId">Toy Type</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="toyTypeId"
+                 type="text"
+                 placeholder="Toy Type (required)"
+                 formControlName="toyType"
+                 [ngClass]="{'is-invalid': displayMessage.toyType }"/>
+          <span class="invalid-feedback">
+            {{displayMessage.toyType}}
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="lastNameId">Toy description</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="lastNameId"
+                 type="text"
+                 placeholder="Toy description (required)"
+                 formControlName="toyDescription"
+                 [ngClass]="{'is-invalid': displayMessage.toyDescription }"/>
+          <span class="invalid-feedback">
+            {{displayMessage.toyDescription}}
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="ageMinimumId">Age minimum</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="ageMinimumId"
+                 type="number"
+                 placeholder="Minimum age (ex. 3)"
+                 formControlName="ageMinimum"
+                 [ngClass]="{'is-invalid': displayMessage.city}"/>
+          <span class="invalid-feedback">
+            {{displayMessage.ageMinimum}}
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="emailId">City</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="emailId"
+                 type="email"
+                 placeholder="City (required)"
+                 formControlName="city"
+                 [ngClass]="{'is-invalid': displayMessage.city }"/>
+          <span class="invalid-feedback">
+            {{displayMessage.city}}
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label pt-0">Offer type</label>
+        <div class="col-md-8">
+          <div class="form-check form-check-inline">
+            <label class="form-check-label">
+              <input class="form-check-input"
+                     type="radio"
+                     value="exchange"
+                     formControlName="offerType"> Exchange
+            </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <label class="form-check-label">
+              <input class="form-check-input"
+                     type="radio"
+                     value="sell"
+                     formControlName="offerType"> Sell
+            </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <label class="form-check-label">
+              <input class="form-check-input"
+                     type="radio"
+                     value="sellexchange"
+                     formControlName="offerType"> Exchange/Sell
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="priceId">Price</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="priceId"
+                 type="number"
+                 placeholder="Required if selected sell offer type"
+                 formControlName="price"
+                 [ngClass]="{'is-invalid': displayMessage.price}"/>
+          <span class="invalid-feedback">
+            {{displayMessage.city}}
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label pt-0">Delivery option</label>
+        <div class="col-md-8">
+          <div class="form-check form-check-inline">
+            <label class="form-check-label">
+              <input class="form-check-input"
+                     type="radio"
+                     value="courier"
+                     formControlName="deliveryOption"> Courier
+            </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <label class="form-check-label">
+              <input class="form-check-input"
+                     type="radio"
+                     value="pickup_in_person"
+                     formControlName="deliveryOption"> Pickup in person
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="descriptionId">Additional description</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="descriptionId"
+                 type="text"
+                 placeholder="Additional description"
+                 formControlName="description"
+                 [ngClass]="{'is-invalid': displayMessage.description }"/>
+          <span class="invalid-feedback">
+            {{displayMessage.toyName}}
+          </span>
+        </div>
+      </div>
+
+
+      <div class="form-group row mb-2">
+        <div class="offset-md-2 col-md-4">
+          <button class="btn btn-primary mr-3"
+                  type="submit"
+                  style="width:80px"
+                  [title]="offerFormGroup.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+                  [disabled]="!offerFormGroup.valid">
+            Save
+          </button>
+          <button class="btn btn-outline-secondary"
+                  type="button"
+                  (click)="populateTestData()">
+            Fill with test data
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<br>Dirty: {{ offerFormGroup.dirty }}
+<br>Touched: {{ offerFormGroup.touched }}
+<br>Valid: {{ offerFormGroup.valid }}
+<br>Value: {{ offerFormGroup.value }}
+<p>offer-edit works!</p>
+<p>{{retrievedId}}</p>

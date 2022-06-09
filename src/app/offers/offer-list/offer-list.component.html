@@ -1,0 +1,218 @@
+<div class="card">
+  <div class="card-header">
+    Filter offers:
+  </div>
+
+  <div class="card-body">
+    <form novalidate
+          (ngSubmit)="search()"
+          [formGroup]="offerSearchFormGroup">
+
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label pt-0">Filtery by:</label>
+        <div class="col-md-8">
+          <div class="form-check form-check-inline">
+            <label class="form-check-label">
+              <input class="form-check-input"
+                     type="checkbox"
+                     formControlName="cityFlag"> City
+            </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <label class="form-check-label">
+              <input class="form-check-input"
+                     type="checkbox"
+                     formControlName="ageMinFlag"> Age minimum
+            </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <label class="form-check-label">
+              <input class="form-check-input"
+                     type="checkbox"
+                     formControlName="offerTypeFlag"> Offer Type
+            </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <label class="form-check-label">
+              <input class="form-check-input"
+                     type="checkbox"
+                     formControlName="toyDetailsFlag"> Toy Details
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="offerSearchFormGroup.get('cityFlag')?.value">
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label"
+                 for="cityFilterId">City Name</label>
+          <div class="col-md-8">
+            <input class="form-control"
+                   id="cityFilterId"
+                   type="text"
+                   placeholder="City name"
+                   formControlName="city"
+                   [ngClass]="{'is-invalid': cityValidationMessage}"/>
+            <span class="invalid-feedback">
+              {{cityValidationMessage}}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="offerSearchFormGroup.get('toyDetailsFlag')?.value">
+        <div formArrayName="toyDetails"
+             *ngFor="let details of toyDetails.controls; let i=index">
+          <div [formGroupName]="i">
+            <div class="form-group row mb-2">
+              <label class="col-md-2 col-form-label"
+                     attr.for="{{'toyTypeId' + i}}}">Toy Type</label>
+              <div class="col-md-8">
+                <input class="form-control"
+                       id="{{'toyTypeId' + i}}}"
+                       type="text"
+                       placeholder="Toy Type"
+                       formControlName="toyType"
+                       [ngClass]="{'is-invalid': toyTypeValidationMessage}"/>
+                <span class="invalid-feedback">
+              {{toyTypeValidationMessage}}
+            </span>
+              </div>
+            </div>
+            <div class="form-group row mb-2">
+              <label class="col-md-2 col-form-label"
+                     attr.for="{{'priceId' + i}}">Price</label>
+              <div class="col-md-8">
+                <input class="form-control"
+                       id="{{'priceId' + i}}"
+                       type="text"
+                       placeholder="Price"
+                       formControlName="price"
+                       [ngClass]="{'is-invalid': priceValidationMessage}"/>
+                <span class="invalid-feedback">
+              {{priceValidationMessage}}
+            </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row mb-2">
+          <div class="col-md-4">
+            <button class="btn btn-outline-primary"
+                    type="button"
+                    [disabled]="!toyDetails.valid"
+                    (click)="addToyDetails()">
+              Add another Toy Details
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div class="form-group row mb-2">
+        <div class="offset-md-2 col-md-4">
+          <button class="btn btn-primary mr-3"
+                  type="submit"
+                  style="width:80px"
+                  [title]="offerSearchFormGroup.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+                  [disabled]="!offerSearchFormGroup.valid">
+            Search
+          </button>
+          <button class="btn btn-outline-secondary"
+                  type="button"
+                  (click)="mockLog()">
+            Fill with test data
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<div class="card">
+  <div class="card-header">
+    {{pageTitle}}
+  </div>
+
+  <div class="card-body">
+
+    <div class="row">
+      <div class="col-md-2">Filter by:</div>
+      <div class="col-md-4">
+        <input type="text"
+               [(ngModel)]="listFilter">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <h4>Filtered by: {{listFilter}}</h4>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table" *ngIf="offers.length">
+        <thead>
+        <tr>
+          <th>
+            <button class="btn btn-primary"
+                    (click)="toggleImage()">
+              {{showImage ? "Hide" : "Show"}} image
+            </button>
+          </th>
+          <th>Toy name</th>
+          <th>Type</th>
+          <th>Age-minimum</th>
+          <th>Offer-Type</th>
+          <th>City</th>
+          <th>Price</th>
+          <th>Rating</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let offer of filteredOffers">
+          <td>
+            <img *ngIf="showImage"
+                 src="../../../assets/images/xbox-controller.png"
+                 [title]="offer.toy.toyName"
+                 [style.width.px]="imageWidth"
+                 [style.margin.px]="imageMargin">
+          </td>
+          <td>
+            <a [routerLink]="['/offers', offer.toy.id]">
+              {{offer.toy.toyName | convertToSpaces:"-"}}
+            </a>
+          </td>
+          <td>{{offer.toy.toyType}}</td>
+          <td>{{offer.toy.ageMinimum}}</td>
+          <td>{{offer.offerType}}</td>
+          <td>{{offer.city}}</td>
+          <td>{{offer.offerType != "exchange" ? (offer.price | currency:'PLN':'symbol':'1.2-2') : "-.--"}}</td>
+          <td>
+            <star-rating [rating]="3.5"
+                         (ratingClicked)="onRatingClicked($event)"></star-rating>
+          </td>
+          <td>
+            <button class="btn-outline-primary btn-sm"
+                    [routerLink]="['/offers', offer.id, 'edit']">
+              Edit
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</div>
+
+<div>
+<br>  Value: {{ offerSearchFormGroup.value | json }}
+<br>  ToyType0: {{ toyDetails.get('0.toyType')?.value | json }}
+<br>  ToyType0: {{ filteredOffers.values().next() | json}}
+</div>

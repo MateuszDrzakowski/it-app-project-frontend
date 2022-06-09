@@ -1,8 +1,8 @@
 export interface IToy {
-  id: number;
+  id: number | null;
   toyName: string;
   toyType: string;
   description: string;
   ageMinimum: number;
-  imageUrl: string;
+  imageURL: string;
 }
