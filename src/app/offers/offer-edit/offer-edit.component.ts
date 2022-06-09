@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {of, Subscription} from "rxjs";
 import {OfferService} from "../offer.service";
 import {IOffer} from "../ioffer";
@@ -20,14 +20,15 @@ export class OfferEditComponent implements OnInit, OnDestroy{
   offerFormGroup: FormGroup;
   // @ts-ignore
   offer: IOffer;
-  retrievedId: String;
+  retrievedId: string;
   private errorMessage: string | any;
 
   displayMessage: { [key: string]: string } = {};
   private readonly validationMessages: { [key: string]: { [key: string]: string } };
   private genericValidator: GenericValidator;
 
-  constructor(private route: ActivatedRoute, private offerService: OfferService, private formBuilder: FormBuilder) {
+  constructor(private route: ActivatedRoute, private offerService: OfferService,
+              private formBuilder: FormBuilder, private router: Router) {
     this.retrievedId = 'retreivedId';
 
     this.validationMessages = {
@@ -142,6 +143,42 @@ export class OfferEditComponent implements OnInit, OnDestroy{
   }
 
   save() {
+    if(this.offerFormGroup.valid) {
+      if (this.offerFormGroup.dirty) {
+        // const offerToUpdate = {...this.offer, ...this.offerFormGroup.value}
+        const offerToUpdate = {
+            "id": parseInt(this.retrievedId),
+            "toy": {
+              //TODO
+              "id": this.offer.toy.id,
+              "toyName": this.offerFormGroup.value.toyName,
+              "toyType": this.offerFormGroup.value.toyType,
+              "description": this.offerFormGroup.value.toyDescription,
+              "ageMinimum": this.offerFormGroup.value.ageMinimum,
+              "imageURL": "assets/images/xbox-controller.png"
+            },
+            "city": this.offerFormGroup.value.city,
+            "offerType": this.offerFormGroup.value.offerType,
+            "price": this.offerFormGroup.value.price,
+            "deliveryOption": this.offerFormGroup.value.deliveryOption,
+            "description": this.offerFormGroup.value.description
+          };
+
+        console.log("offerToUpdate: ");
+        console.log(offerToUpdate);
+
+        this.offerService.updateOffer(offerToUpdate)
+          .subscribe({
+            next: () => this.onSaveComplete(),
+            error: err => this.errorMessage = err
+            })
+
+      } else {
+        this.onSaveComplete();
+      }
+    } else {
+      this.errorMessage = 'Please correct the validation errors'
+    }
 
   }
 
@@ -161,5 +198,10 @@ export class OfferEditComponent implements OnInit, OnDestroy{
       priceControl?.clearValidators();
     }
     priceControl?.updateValueAndValidity();
+  }
+
+  private onSaveComplete() {
+    this.offerFormGroup.reset();
+    this.router.navigate(['/offers']);
   }
 }
