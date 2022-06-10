@@ -10,7 +10,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import { OfferEditComponent } from './offer-edit/offer-edit.component';
 import {OfferEditGuard} from "./offer-edit/offer-edit.guard";
 import {InMemoryWebApiModule} from "angular-in-memory-web-api";
-import {OffersData} from "./offersData";
+import {MockedBackendData} from "../mockedBackendData";
 import { UserOfferListComponent } from './user-offer-list/user-offer-list.component';
 
 @NgModule({
@@ -37,7 +37,7 @@ import { UserOfferListComponent } from './user-offer-list/user-offer-list.compon
     ]),
     SharedModule,
     ReactiveFormsModule,
-    InMemoryWebApiModule.forRoot(OffersData)
+    InMemoryWebApiModule.forRoot(MockedBackendData)
   ]
 })
 export class OfferModule { }

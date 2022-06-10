@@ -8,7 +8,7 @@ import {WelcomeComponent} from "./home/welcome.component";
 import { OfferModule } from './offers/offer.module';
 
 import {InMemoryWebApiModule} from "angular-in-memory-web-api";
-import {OffersData} from "./offers/offersData";
+import {MockedBackendData} from "./mockedBackendData";
 
 @NgModule({
   declarations: [
@@ -20,7 +20,7 @@ import {OffersData} from "./offers/offersData";
     AppRoutingModule,
     HttpClientModule,
     OfferModule,
-    InMemoryWebApiModule.forRoot(OffersData, { dataEncapsulation: false })
+    InMemoryWebApiModule.forRoot(MockedBackendData, { dataEncapsulation: false })
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
 import {OfferService} from "../offer.service";
 import {IOffer} from "../ioffer";
@@ -34,15 +34,17 @@ export class UserOfferListComponent implements OnInit {
   // @ts-ignore
   alerts: Alert[] = [];
 
-  constructor(private offerService: OfferService) { }
+  constructor(private offerService: OfferService) {
+  }
 
   ngOnInit(): void {
-    this.sub = this.offerService.getOffers().subscribe({
-      next: offers => {
-        this.offers = offers;
-      },
-      error: error => this.errorMessage = error
-    });
+    this.sub = this.offerService.getOffersWithQueryParams(null, null, null, null, null, 1)
+      .subscribe({
+        next: offers => {
+          this.offers = offers;
+        },
+        error: error => this.errorMessage = error
+      });
   }
 
   ngOnDestroy(): void {
@@ -58,7 +60,7 @@ export class UserOfferListComponent implements OnInit {
   }
 
   deleteOffer(offerId: number | null) {
-    if(offerId != null && confirm('Are you sure, you want delete the offer?')) {
+    if (offerId != null && confirm('Are you sure, you want delete the offer?')) {
       this.offerService.deleteOffer(offerId)
         .subscribe({
           next: () => this.deletedSuccessfully(),

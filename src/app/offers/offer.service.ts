@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {IOffer} from "./ioffer";
-import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Observable, of, throwError} from "rxjs";
 import {catchError, map, tap} from "rxjs/operators";
 import {Offer} from "./offer";
@@ -29,6 +29,33 @@ export class OfferService {
   getOffer(id: number): Observable<IOffer> {
     return this.http.get<IOffer>(`${this.offerUrl}/${id}`).pipe(
       tap(data => console.log("Selected offer data:, ", JSON.stringify(data)),
+        catchError(this.handleError))
+    );
+  }
+
+  getOffersWithQueryParams(city: string | null, ageMin: number | null, offerType: string | null,
+                          price: number | null, deliveryOption: string | null, userId: number | null): Observable<IOffer[]> {
+    let params = new HttpParams();
+    if(city != null) {
+      params = params.append('city', city);
+    }
+    if(ageMin != null) {
+      params = params.append('age_min', ageMin);
+    }
+    if(offerType != null) {
+      params = params.append('offer_type', offerType);
+    }
+    if(price != null) {
+      params = params.append('price', price);
+    }
+    if(deliveryOption != null) {
+      params = params.append('delivery_option', deliveryOption);
+    }
+    if(userId != null) {
+      params = params.append('userId', userId);
+    }
+    return this.http.get<IOffer[]>(this.offerUrl, {params: params}).pipe(
+      tap(data => console.log("getOffersWithQueryParams():, ", JSON.stringify(data)),
         catchError(this.handleError))
     );
   }
