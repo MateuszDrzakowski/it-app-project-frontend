@@ -21,6 +21,8 @@ export class OfferEditComponent implements OnInit, OnDestroy{
   // @ts-ignore
   offer: IOffer;
   retrievedId: string;
+  // @ts-ignore
+  userId: number = 1;
   private errorMessage: string | any;
 
   displayMessage: { [key: string]: string } = {};
@@ -161,7 +163,8 @@ export class OfferEditComponent implements OnInit, OnDestroy{
             "offerType": this.offerFormGroup.value.offerType,
             "price": this.offerFormGroup.value.price,
             "deliveryOption": this.offerFormGroup.value.deliveryOption,
-            "description": this.offerFormGroup.value.description
+            "description": this.offerFormGroup.value.description,
+            "userId": this.userId
           };
 
         console.log("offerToUpdate: ");
@@ -203,5 +206,15 @@ export class OfferEditComponent implements OnInit, OnDestroy{
   private onSaveComplete() {
     this.offerFormGroup.reset();
     this.router.navigate(['/offers']);
+  }
+
+  deleteOffer() {
+    if(confirm('Are you sure, you want delete the offer?')) {
+      this.offerService.deleteOffer(this.offer.id)
+        .subscribe({
+          next: () => this.onSaveComplete(),
+          error: err => this.errorMessage = err
+        });
+    }
   }
 }

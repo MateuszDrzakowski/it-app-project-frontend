@@ -44,6 +44,17 @@ export class OfferService {
       );
   }
 
+  saveOffer(offer: IOffer): Observable<IOffer> {
+    console.log('saveOffer passed object: ' + JSON.stringify(offer))
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const url = this.offerUrl;
+    return this.http.post<IOffer>(url, offer, {headers: headers})
+      .pipe(
+        tap(data => console.log('saveOffer returned object: ' + JSON.stringify(data))),
+        catchError(this.handleError)
+      );
+  }
+
 
   private handleError(error: HttpErrorResponse) {
     let errorMessage = '';
@@ -56,5 +67,15 @@ export class OfferService {
     }
     console.log(errorMessage);
     return throwError(errorMessage);
+  }
+
+  deleteOffer(id: number | null): Observable<{}> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const url = `${this.offerUrl}/${id}`;
+    return this.http.delete<IOffer>(url, {headers: headers})
+      .pipe(
+        tap(data => console.log('deleteOffer: ' + id)),
+        catchError(this.handleError)
+      );
   }
 }

@@ -22,7 +22,8 @@ export class OffersData implements InMemoryDbService {
           "offerType": "exchange",
           "price": "",
           "deliveryOption": "courier",
-          "description": "Offer description"
+          "description": "Offer description",
+          "userId": 1
         },
         {
           "id": 5,
@@ -38,7 +39,8 @@ export class OffersData implements InMemoryDbService {
           "offerType": "sell",
           "price": "3.99",
           "deliveryOption": "courier",
-          "description": "Offer description"
+          "description": "Offer description",
+          "userId": 1
         }
       ];
 

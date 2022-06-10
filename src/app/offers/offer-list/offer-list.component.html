@@ -13,32 +13,36 @@
         <label class="col-md-2 col-form-label pt-0">Filtery by:</label>
         <div class="col-md-8">
           <div class="form-check form-check-inline">
-            <label class="form-check-label">
-              <input class="form-check-input"
-                     type="checkbox"
-                     formControlName="cityFlag"> City
-            </label>
+            <input class="btn-check"
+                   id="cityFlagCheckbox"
+                   type="checkbox"
+                   autocomplete="off"
+                   formControlName="cityFlag">
+            <label class="btn btn-outline-secondary" for="cityFlagCheckbox">City</label>
           </div>
           <div class="form-check form-check-inline">
-            <label class="form-check-label">
-              <input class="form-check-input"
-                     type="checkbox"
-                     formControlName="ageMinFlag"> Age minimum
-            </label>
+            <input class="btn-check"
+                   id="ageMinimumCheckbox"
+                   type="checkbox"
+                   autocomplete="off"
+                   formControlName="ageMinFlag">
+            <label class="btn btn-outline-primary" for="ageMinimumCheckbox">Age minimum</label>
           </div>
           <div class="form-check form-check-inline">
-            <label class="form-check-label">
-              <input class="form-check-input"
-                     type="checkbox"
-                     formControlName="offerTypeFlag"> Offer Type
-            </label>
+            <input class="btn-check"
+                   id="offerTypeCheckbox"
+                   type="checkbox"
+                   autocomplete="off"
+                   formControlName="offerTypeFlag">
+            <label class="btn btn-outline-primary" for="offerTypeCheckbox">Offer Type</label>
           </div>
           <div class="form-check form-check-inline">
-            <label class="form-check-label">
-              <input class="form-check-input"
-                     type="checkbox"
-                     formControlName="toyDetailsFlag"> Toy Details
-            </label>
+            <input class="btn-check"
+                   id="toyDetailsCheckbox"
+                   type="checkbox"
+                   autocomplete="off"
+                   formControlName="toyDetailsFlag">
+            <label class="btn btn-outline-primary" for="toyDetailsCheckbox">Toy Details</label>
           </div>
         </div>
       </div>
@@ -177,13 +181,13 @@
         <tr *ngFor="let offer of filteredOffers">
           <td>
             <img *ngIf="showImage"
-                 src="../../../assets/images/xbox-controller.png"
+                 src="{{offer.toy.imageURL}}"
                  [title]="offer.toy.toyName"
                  [style.width.px]="imageWidth"
                  [style.margin.px]="imageMargin">
           </td>
           <td>
-            <a [routerLink]="['/offers', offer.toy.id]">
+            <a [routerLink]="['/offers', offer.id]">
               {{offer.toy.toyName | convertToSpaces:"-"}}
             </a>
           </td>
@@ -212,7 +216,7 @@
 </div>
 
 <div>
-<br>  Value: {{ offerSearchFormGroup.value | json }}
-<br>  ToyType0: {{ toyDetails.get('0.toyType')?.value | json }}
-<br>  ToyType0: {{ filteredOffers.values().next() | json}}
+  <br> Value: {{ offerSearchFormGroup.value | json }}
+  <br> ToyType0: {{ toyDetails.get('0.toyType')?.value | json }}
+  <br> ToyType0: {{ filteredOffers.values().next() | json}}
 </div>

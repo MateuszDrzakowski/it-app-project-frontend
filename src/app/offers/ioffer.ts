@@ -8,4 +8,5 @@ export interface IOffer {
   price: string,
   description: string,
   deliveryOption: string
+  userId: number
 }

@@ -11,6 +11,7 @@ import { OfferEditComponent } from './offer-edit/offer-edit.component';
 import {OfferEditGuard} from "./offer-edit/offer-edit.guard";
 import {InMemoryWebApiModule} from "angular-in-memory-web-api";
 import {OffersData} from "./offersData";
+import { UserOfferListComponent } from './user-offer-list/user-offer-list.component';
 
 @NgModule({
   declarations: [
@@ -19,10 +20,12 @@ import {OffersData} from "./offersData";
     ConvertToSpacesPipe,
     OfferAddComponent,
     OfferEditComponent,
+    UserOfferListComponent,
   ],
   imports: [
     RouterModule.forChild([
       { path: 'offers', component: OfferListComponent },
+      { path: 'offers/user-offers/:userId', component: UserOfferListComponent },
       { path: 'offers/:id',
         canActivate: [OfferDetailGuard],
         component: OfferDetailComponent,

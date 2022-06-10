@@ -187,6 +187,20 @@
                   (click)="populateTestData()">
             Fill with test data
           </button>
+          <button class="btn btn-outline-secondary mr-3"
+                  type="button"
+                  style="width:80px"
+                  title="Cancel update"
+                  [routerLink]="['/offers']">
+            Cancel
+          </button>
+          <button class="btn btn-outline-warning"
+                  type="button"
+                  style="width:80px"
+                  title="Delete this offer"
+                  (click)="deleteOffer()">
+            Delete
+          </button>
         </div>
       </div>
     </form>

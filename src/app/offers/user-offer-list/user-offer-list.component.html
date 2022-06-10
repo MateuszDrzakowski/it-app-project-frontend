@@ -1,0 +1,74 @@
+<p *ngFor="let alert of alerts">
+<div *ngFor="let alert of alerts" class="alert alert-success" role="alert" (click)="close(alert)">{{ alert.message }}</div>
+
+
+<div class="card">
+  <div class="card-header">
+    {{pageTitle}}
+  </div>
+
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table" *ngIf="offers.length">
+        <thead>
+        <tr>
+          <th>
+            <button class="btn btn-primary"
+                    (click)="toggleImage()">
+              {{showImage ? "Hide" : "Show"}} image
+            </button>
+          </th>
+          <th>Toy name</th>
+          <th>Type</th>
+          <th>Age-minimum</th>
+          <th>Offer-Type</th>
+          <th>City</th>
+          <th>Price</th>
+          <th>Rating</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let offer of offers">
+          <td>
+            <img *ngIf="showImage"
+                 src="{{offer.toy.imageURL}}"
+                 [title]="offer.toy.toyName"
+                 [style.width.px]="imageWidth"
+                 [style.margin.px]="imageMargin">
+          </td>
+          <td>
+            <a [routerLink]="['/offers', offer.id]">
+              {{offer.toy.toyName | convertToSpaces:"-"}}
+            </a>
+          </td>
+          <td>{{offer.toy.toyType}}</td>
+          <td>{{offer.toy.ageMinimum}}</td>
+          <td>{{offer.offerType}}</td>
+          <td>{{offer.city}}</td>
+          <td>{{offer.offerType != "exchange" ? (offer.price | currency:'PLN':'symbol':'1.2-2') : "-.--"}}</td>
+          <td>
+            <star-rating [rating]="3.5"
+                         (ratingClicked)="onRatingClicked($event)"></star-rating>
+          </td>
+          <td>
+            <button class="btn-outline-primary btn-sm"
+                    [routerLink]="['/offers', offer.id, 'edit']">
+              Edit
+            </button>
+
+            <button class="btn btn-outline-warning"
+                    type="button"
+                    title="Delete"
+                    (click)="deleteOffer(offer.id)">
+              Delete
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</div>
+

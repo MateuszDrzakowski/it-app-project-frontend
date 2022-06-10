@@ -3,6 +3,9 @@ import {Offer} from "../offer";
 import {FormGroup, FormBuilder, Validators} from "@angular/forms";
 import {NumberValidators} from "../../shared/number.validator";
 import {GenericValidator} from "../../shared/generic.validator";
+import {IOffer} from "../ioffer";
+import {OfferService} from "../offer.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 
 @Component({
@@ -14,14 +17,18 @@ export class OfferAddComponent implements OnInit {
 
   // @ts-ignore
   offerFormGroup: FormGroup;
-  offer = new Offer();
+  // @ts-ignore
+  offer: IOffer;
+  userId: number = 1;
+  private errorMessage: string | any;
 
   displayMessage: { [key: string]: string } = {};
   private readonly validationMessages: { [key: string]: { [key: string]: string } };
   private genericValidator: GenericValidator;
 
 
-  constructor(private formBuilder: FormBuilder ) {
+  constructor(private formBuilder: FormBuilder, private offerService: OfferService,
+              private router: Router, private route: ActivatedRoute) {
 
     this.validationMessages = {
       toyName: {
@@ -92,6 +99,50 @@ export class OfferAddComponent implements OnInit {
   save() {
     console.log(this.offerFormGroup);
     console.log('Saved: ' + JSON.stringify(this.offerFormGroup.value));
+    if(this.offerFormGroup.valid) {
+      if (this.offerFormGroup.dirty) {
+        // const offerToUpdate = {...this.offer, ...this.offerFormGroup.value}
+        const offerToSave = {
+          "id": null,
+          "toy": {
+            //TODO
+            "id": null,
+            "toyName": this.offerFormGroup.value.toyName,
+            "toyType": this.offerFormGroup.value.toyType,
+            "description": this.offerFormGroup.value.toyDescription,
+            "ageMinimum": this.offerFormGroup.value.ageMinimum,
+            "imageURL": "assets/images/xbox-controller.png"
+          },
+          "city": this.offerFormGroup.value.city,
+          "offerType": this.offerFormGroup.value.offerType,
+          "price": this.offerFormGroup.value.price,
+          "deliveryOption": this.offerFormGroup.value.deliveryOption,
+          "description": this.offerFormGroup.value.description,
+          "userId": this.userId
+        };
+
+        console.log("offerToUpdate: ");
+        console.log(offerToSave);
+
+        this.offerService.saveOffer(offerToSave)
+          .subscribe({
+            next: () => this.onSaveComplete(),
+            error: err => this.errorMessage = err
+          })
+
+      } else {
+        this.onSaveComplete();
+      }
+    } else {
+      this.errorMessage = 'Please correct the validation errors'
+    }
+
+
+  }
+
+  private onSaveComplete() {
+    this.offerFormGroup.reset();
+    this.router.navigate(['/offers']);
   }
 
   populateTestData(): void {
