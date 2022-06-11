@@ -12,6 +12,7 @@ import {OfferEditGuard} from "./offer-edit/offer-edit.guard";
 import {InMemoryWebApiModule} from "angular-in-memory-web-api";
 import {MockedBackendData} from "../mockedBackendData";
 import { UserOfferListComponent } from './user-offer-list/user-offer-list.component';
+import {ProfilesModule} from "../profiles/profiles.module";
 
 @NgModule({
   declarations: [
@@ -24,20 +25,24 @@ import { UserOfferListComponent } from './user-offer-list/user-offer-list.compon
   ],
   imports: [
     RouterModule.forChild([
-      { path: 'offers', component: OfferListComponent },
-      { path: 'offers/user-offers/:userId', component: UserOfferListComponent },
-      { path: 'offers/:id',
+      {path: 'offers', component: OfferListComponent},
+      {path: 'offers/user-offers/:userId', component: UserOfferListComponent},
+      {
+        path: 'offers/:id',
         canActivate: [OfferDetailGuard],
         component: OfferDetailComponent,
       },
-      { path: 'offers/:id/edit',
+      {
+        path: 'offers/:id/edit',
         canDeactivate: [OfferEditGuard],
-        component: OfferEditComponent},
-      { path: 'add-offer', component: OfferAddComponent}
+        component: OfferEditComponent
+      },
+      {path: 'add-offer', component: OfferAddComponent}
     ]),
     SharedModule,
     ReactiveFormsModule,
-    InMemoryWebApiModule.forRoot(MockedBackendData)
+    InMemoryWebApiModule.forRoot(MockedBackendData),
+    ProfilesModule
   ]
 })
 export class OfferModule { }

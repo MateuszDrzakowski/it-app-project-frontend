@@ -7,7 +7,7 @@ import {IComment} from "./profiles/icomment";
 
 export class MockedBackendData implements InMemoryDbService {
 
-  createDb(): { offers: IOffer[] } {
+  createDb() {
     const offers: IOffer[] =
       [
         {
@@ -55,14 +55,14 @@ export class MockedBackendData implements InMemoryDbService {
           "username": "username100"
         }
       ];
-    const comments: IComment[] =
+    const comment: IComment[] =
       [
         {
           "id": 4,
           "authorId": 2,
           "targetUserId": 4,
           "content": "Good seller!",
-          "create_date": "19-02-2019 HH:MM",
+          "create_date": "19-02-2019 10:58",
           "rating": 1
         },
         {
@@ -70,13 +70,21 @@ export class MockedBackendData implements InMemoryDbService {
           "authorId": 3,
           "targetUserId": 4,
           "content": "Good seller again!",
-          "create_date": "20-02-2019 HH:MM",
+          "create_date": "20-02-2019 22:22",
+          "rating": 2
+        },
+        {
+          "id": 6,
+          "authorId": 3,
+          "targetUserId": 5,
+          "content": "Good seller again 222!",
+          "create_date": "20-02-2019 10:45",
           "rating": 2
         }
       ]
 
 
-    return {offers: offers};
+    return { offers, profile, comment };
   }
 
 

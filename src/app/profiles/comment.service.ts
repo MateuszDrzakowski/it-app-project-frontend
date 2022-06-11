@@ -15,9 +15,8 @@ export class CommentService {
   constructor(private http: HttpClient) {
   }
 
-
   getCommentsOfUser(userId: number): Observable<IComment[]> {
-    return this.http.get<IComment[]>(`${this.commentUrl}/${userId}`)
+    return this.http.get<IComment[]>(`${this.commentUrl}?targetUserId=${userId}`)
       .pipe(
         tap(data => console.log("getCommentsOfUser():, ", JSON.stringify(data)),
           catchError(this.handleError))

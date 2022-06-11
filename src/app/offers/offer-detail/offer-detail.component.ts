@@ -15,11 +15,14 @@ export class OfferDetailComponent implements OnInit {
   offer: IOffer | undefined;
   sub!: Subscription;
   errorMessage: string = '';
+  userId: number;
 
 
   constructor(private route: ActivatedRoute,
               private offerService: OfferService,
               private router: Router) {
+    this.userId = Number(this.route.snapshot.paramMap.get('id'));
+
   }
 
   ngOnInit(): void {
