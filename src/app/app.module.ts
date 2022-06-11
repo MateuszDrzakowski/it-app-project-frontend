@@ -9,6 +9,7 @@ import { OfferModule } from './offers/offer.module';
 
 import {InMemoryWebApiModule} from "angular-in-memory-web-api";
 import {MockedBackendData} from "./mockedBackendData";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {MockedBackendData} from "./mockedBackendData";
     AppRoutingModule,
     HttpClientModule,
     OfferModule,
-    InMemoryWebApiModule.forRoot(MockedBackendData, { dataEncapsulation: false })
+    InMemoryWebApiModule.forRoot(MockedBackendData, { dataEncapsulation: false }),
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

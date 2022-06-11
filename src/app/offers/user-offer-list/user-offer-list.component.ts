@@ -43,7 +43,11 @@ export class UserOfferListComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("this userId: ", this.userId)
-    this.sub = this.offerService.getOffersWithQueryParams(null, null, null, null, null, this.userId)
+    this.getOffers(null, null, null, null, null, this.userId);
+  }
+
+  private getOffers(city: string | null,     ageMin: number | null,     offerType: string | null,     price: number | null,     deliveryOption: string | null,     userId: number | null) {
+    this.sub = this.offerService.getOffersWithQueryParams(city, ageMin, offerType, price, deliveryOption, userId)
       .subscribe({
         next: offers => {
           this.offers = offers;

@@ -17,7 +17,8 @@
                    id="cityFlagCheckbox"
                    type="checkbox"
                    autocomplete="off"
-                   formControlName="cityFlag">
+                   formControlName="cityFlag"
+            (change)="flagCheckboxChanged('city')">
             <label class="btn btn-outline-secondary" for="cityFlagCheckbox">City</label>
           </div>
           <div class="form-check form-check-inline">
@@ -25,7 +26,8 @@
                    id="ageMinimumCheckbox"
                    type="checkbox"
                    autocomplete="off"
-                   formControlName="ageMinFlag">
+                   formControlName="ageMinimumFlag"
+                   (change)="flagCheckboxChanged('ageMinimum')">
             <label class="btn btn-outline-primary" for="ageMinimumCheckbox">Age minimum</label>
           </div>
           <div class="form-check form-check-inline">
@@ -33,16 +35,27 @@
                    id="offerTypeCheckbox"
                    type="checkbox"
                    autocomplete="off"
-                   formControlName="offerTypeFlag">
+                   formControlName="offerTypeFlag"
+                   (change)="flagCheckboxChanged('offerType')">
             <label class="btn btn-outline-primary" for="offerTypeCheckbox">Offer Type</label>
           </div>
           <div class="form-check form-check-inline">
             <input class="btn-check"
-                   id="toyDetailsCheckbox"
+                   id="deliveryOptionCheckbox"
                    type="checkbox"
                    autocomplete="off"
-                   formControlName="toyDetailsFlag">
-            <label class="btn btn-outline-primary" for="toyDetailsCheckbox">Toy Details</label>
+                   formControlName="deliveryOptionFlag"
+                   (change)="flagCheckboxChanged('deliveryOption')">
+            <label class="btn btn-outline-primary" for="deliveryOptionCheckbox">Delivery Option</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="btn-check"
+                   id="priceCheckbox"
+                   type="checkbox"
+                   autocomplete="off"
+                   formControlName="priceFlag"
+                   (change)="flagCheckboxChanged('price')">
+            <label class="btn btn-outline-primary" for="priceCheckbox">Price</label>
           </div>
         </div>
       </div>
@@ -57,63 +70,154 @@
                    type="text"
                    placeholder="City name"
                    formControlName="city"
-                   [ngClass]="{'is-invalid': cityValidationMessage}"/>
+                   [ngClass]="{'is-invalid': displayMessage.city}"/>
             <span class="invalid-feedback">
-              {{cityValidationMessage}}
+              {{displayMessage.city}}
             </span>
           </div>
         </div>
       </div>
 
-      <div *ngIf="offerSearchFormGroup.get('toyDetailsFlag')?.value">
-        <div formArrayName="toyDetails"
-             *ngFor="let details of toyDetails.controls; let i=index">
-          <div [formGroupName]="i">
-            <div class="form-group row mb-2">
-              <label class="col-md-2 col-form-label"
-                     attr.for="{{'toyTypeId' + i}}}">Toy Type</label>
-              <div class="col-md-8">
-                <input class="form-control"
-                       id="{{'toyTypeId' + i}}}"
-                       type="text"
-                       placeholder="Toy Type"
-                       formControlName="toyType"
-                       [ngClass]="{'is-invalid': toyTypeValidationMessage}"/>
-                <span class="invalid-feedback">
-              {{toyTypeValidationMessage}}
-            </span>
-              </div>
-            </div>
-            <div class="form-group row mb-2">
-              <label class="col-md-2 col-form-label"
-                     attr.for="{{'priceId' + i}}">Price</label>
-              <div class="col-md-8">
-                <input class="form-control"
-                       id="{{'priceId' + i}}"
-                       type="text"
-                       placeholder="Price"
-                       formControlName="price"
-                       [ngClass]="{'is-invalid': priceValidationMessage}"/>
-                <span class="invalid-feedback">
-              {{priceValidationMessage}}
-            </span>
-              </div>
-            </div>
-          </div>
-        </div>
-
+      <div *ngIf="offerSearchFormGroup.get('ageMinimumFlag')?.value">
         <div class="form-group row mb-2">
-          <div class="col-md-4">
-            <button class="btn btn-outline-primary"
-                    type="button"
-                    [disabled]="!toyDetails.valid"
-                    (click)="addToyDetails()">
-              Add another Toy Details
-            </button>
+          <label class="col-md-2 col-form-label"
+                 for="ageMinimumFilterId">Age minimum</label>
+          <div class="col-md-8">
+            <input class="form-control"
+                   id="ageMinimumFilterId"
+                   type="number"
+                   placeholder="Minimum age (ex. 3)"
+                   formControlName="ageMinimum"
+                   [ngClass]="{'is-invalid': displayMessage.ageMinimum}"/>
+            <span class="invalid-feedback">
+              {{displayMessage.ageMinimum}}
+            </span>
           </div>
         </div>
-
       </div>
+
+      <div *ngIf="offerSearchFormGroup.get('offerTypeFlag')?.value">
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label pt-0">Offer type</label>
+          <div class="col-md-8">
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input"
+                       type="radio"
+                       value="exchange"
+                       formControlName="offerType"> Exchange
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input"
+                       type="radio"
+                       value="sell"
+                       formControlName="offerType"> Sell
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input"
+                       type="radio"
+                       value="sellexchange"
+                       formControlName="offerType"> Exchange/Sell
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="offerSearchFormGroup.get('deliveryOptionFlag')?.value">
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label pt-0">Delivery option</label>
+          <div class="col-md-8">
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input"
+                       type="radio"
+                       value="courier"
+                       formControlName="deliveryOption"> Courier
+              </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <label class="form-check-label">
+                <input class="form-check-input"
+                       type="radio"
+                       value="pickup_in_person"
+                       formControlName="deliveryOption"> Pickup in person
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="offerSearchFormGroup.get('priceFlag')?.value">
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label"
+                 for="priceFilterId">Price</label>
+          <div class="col-md-8">
+            <input class="form-control"
+                   id="priceFilterId"
+                   type="number"
+                   placeholder=""
+                   formControlName="price"
+                   [ngClass]="{'is-invalid': displayMessage.price}"/>
+            <span class="invalid-feedback">
+              {{displayMessage.price}}
+            </span>
+          </div>
+        </div>
+      </div>
+<!--      <div *ngIf="offerSearchFormGroup.get('toyDetailsFlag')?.value">-->
+<!--        <div formArrayName="toyDetails"-->
+<!--             *ngFor="let details of toyDetails.controls; let i=index">-->
+<!--          <div [formGroupName]="i">-->
+<!--            <div class="form-group row mb-2">-->
+<!--              <label class="col-md-2 col-form-label"-->
+<!--                     attr.for="{{'toyTypeId' + i}}}">Toy Type</label>-->
+<!--              <div class="col-md-8">-->
+<!--                <input class="form-control"-->
+<!--                       id="{{'toyTypeId' + i}}}"-->
+<!--                       type="text"-->
+<!--                       placeholder="Toy Type"-->
+<!--                       formControlName="toyType"-->
+<!--                       [ngClass]="{'is-invalid': toyTypeValidationMessage}"/>-->
+<!--                <span class="invalid-feedback">-->
+<!--              {{toyTypeValidationMessage}}-->
+<!--            </span>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="form-group row mb-2">-->
+<!--              <label class="col-md-2 col-form-label"-->
+<!--                     attr.for="{{'priceId' + i}}">Price</label>-->
+<!--              <div class="col-md-8">-->
+<!--                <input class="form-control"-->
+<!--                       id="{{'priceId' + i}}"-->
+<!--                       type="text"-->
+<!--                       placeholder="Price"-->
+<!--                       formControlName="price"-->
+<!--                       [ngClass]="{'is-invalid': priceValidationMessage}"/>-->
+<!--                <span class="invalid-feedback">-->
+<!--              {{priceValidationMessage}}-->
+<!--            </span>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--        <div class="form-group row mb-2">-->
+<!--          <div class="col-md-4">-->
+<!--            <button class="btn btn-outline-primary"-->
+<!--                    type="button"-->
+<!--                    [disabled]="!toyDetails.valid"-->
+<!--                    (click)="addToyDetails()">-->
+<!--              Add another Toy Details-->
+<!--            </button>-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--      </div>-->
 
 
       <div class="form-group row mb-2">
@@ -127,8 +231,8 @@
           </button>
           <button class="btn btn-outline-secondary"
                   type="button"
-                  (click)="mockLog()">
-            Fill with test data
+                  (click)="getOffers()">
+            Reset filters
           </button>
         </div>
       </div>
@@ -143,21 +247,6 @@
   </div>
 
   <div class="card-body">
-
-    <div class="row">
-      <div class="col-md-2">Filter by:</div>
-      <div class="col-md-4">
-        <input type="text"
-               [(ngModel)]="listFilter">
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-6">
-        <h4>Filtered by: {{listFilter}}</h4>
-      </div>
-    </div>
-
     <div class="table-responsive">
       <table class="table" *ngIf="offers.length">
         <thead>
@@ -178,7 +267,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let offer of filteredOffers">
+        <tr *ngFor="let offer of offers">
           <td>
             <img *ngIf="showImage"
                  src="{{offer.toy.imageURL}}"
@@ -200,12 +289,6 @@
             <star-rating [rating]="3.5"
                          (ratingClicked)="onRatingClicked($event)"></star-rating>
           </td>
-          <td>
-            <button class="btn-outline-primary btn-sm"
-                    [routerLink]="['/offers', offer.id, 'edit']">
-              Edit
-            </button>
-          </td>
         </tr>
         </tbody>
       </table>
@@ -217,6 +300,4 @@
 
 <div>
   <br> Value: {{ offerSearchFormGroup.value | json }}
-  <br> ToyType0: {{ toyDetails.get('0.toyType')?.value | json }}
-  <br> ToyType0: {{ filteredOffers.values().next() | json}}
 </div>

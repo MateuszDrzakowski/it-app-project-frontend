@@ -43,6 +43,40 @@ export class MockedBackendData implements InMemoryDbService {
           "deliveryOption": "courier",
           "description": "Offer description",
           "userId": 2
+        },
+        {
+          "id": 6,
+          "toy": {
+            "id": 4,
+            "toyName": "LandyAchtz Mini Skateboard 222",
+            "toyType": "Skateboard",
+            "description": "Toy description",
+            "ageMinimum": 4,
+            "imageURL": "assets/images/xbox-controller.png"
+          },
+          "city": "Wrocław",
+          "offerType": "exchange",
+          "price": "",
+          "deliveryOption": "courier",
+          "description": "Offer description",
+          "userId": 1
+        },
+        {
+          "id": 7,
+          "toy": {
+            "id": 5,
+            "toyName": "Truck mini",
+            "toyType": "Small Truck",
+            "description": "Toy description",
+            "ageMinimum": 3,
+            "imageURL": "assets/images/xbox-controller.png"
+          },
+          "city": "Długołęka",
+          "offerType": "sell",
+          "price": "125.99",
+          "deliveryOption": "courier",
+          "description": "Offer description",
+          "userId": 2
         }
       ];
     const profile: IUser[] =

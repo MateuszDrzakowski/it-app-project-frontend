@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Location} from '@angular/common'
 import {ActivatedRoute, Router} from "@angular/router";
 import {OfferService} from "../../offers/offer.service";
 import {UserService} from "../user.service";
@@ -17,12 +18,13 @@ export class UserProfileComponent implements OnInit {
   userProfile: IUser;
   sub!: Subscription;
   errorMessage: string = '';
+  newComment: string = '';
 
   constructor(private route: ActivatedRoute,
               private userService: UserService,
-              private router: Router) {
+              private router: Router,
+              private location: Location) {
     this.userId = Number(this.route.snapshot.paramMap.get('userId'));
-
   }
 
   ngOnInit(): void {
@@ -40,7 +42,15 @@ export class UserProfileComponent implements OnInit {
       });
   }
 
+  onCommentSaved(newComment: string): void {
+    this.newComment = newComment;
+  }
+
   ngOnDestroy(): void {
     this.sub.unsubscribe();
+  }
+
+  onBack(): void {
+    this.location.back();
   }
 }

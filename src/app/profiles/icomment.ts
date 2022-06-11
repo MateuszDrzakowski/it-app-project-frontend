@@ -3,6 +3,6 @@ export interface IComment {
   authorId: number,
   targetUserId: number,
   content: string,
-  create_date: string,
+  create_date: string | null,
   rating: number,
 }

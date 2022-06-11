@@ -1,0 +1,58 @@
+<div class="card">
+  <div class="card-header">
+    Add new comment:
+  </div>
+
+  <div class="card-body">
+    <form novalidate
+          (ngSubmit)="save()"
+          [formGroup]="commentFormGroup">
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="contentId">Comment message</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="contentId"
+                 type="text"
+                 placeholder="Comment message (required)"
+                 formControlName="content"
+                 [ngClass]="{'is-invalid': displayMessage.content }"/>
+          <span class="invalid-feedback">
+            {{displayMessage.content}}
+          </span>
+        </div>
+      </div>
+
+      <div class="form-group row mb-2">
+        <label class="col-md-2 col-form-label"
+               for="ratingId">Rating</label>
+        <div class="col-md-8">
+          <input class="form-control"
+                 id="ratingId"
+                 type="number"
+                 placeholder="Rating (1-6)"
+                 formControlName="rating"
+                 [ngClass]="{'is-invalid': displayMessage.rating}"/>
+          <span class="invalid-feedback">
+            {{displayMessage.rating}}
+          </span>
+        </div>
+      </div>
+
+
+
+      <div class="form-group row mb-2">
+        <div class="offset-md-2 col-md-4">
+          <button class="btn btn-primary mr-3"
+                  type="submit"
+                  style="width:80px"
+                  [title]="commentFormGroup.valid ? 'Save your entered data' : 'Disabled until the form data is valid'"
+                  [disabled]="!commentFormGroup.valid">
+            Save
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

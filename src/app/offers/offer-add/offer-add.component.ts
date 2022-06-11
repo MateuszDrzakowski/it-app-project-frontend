@@ -45,9 +45,7 @@ export class OfferAddComponent implements OnInit {
       ageMinimum: {
         validateRange: 'Minimum age must be in range 0-18'
       },
-      imageURL: {
-
-      },
+      imageURL: {},
       city: {
         required: 'Please enter the data',
         minlength: 'The city name need to be at lest 2 characters long.',
@@ -77,7 +75,7 @@ export class OfferAddComponent implements OnInit {
       toyName: ['', [Validators.required, Validators.minLength(3)]],
       toyType: ['', [Validators.required]],
       toyDescription: ['', [Validators.required, Validators.maxLength(50)]],
-      ageMinimum: [null, NumberValidators.validateRange(0,18)],
+      ageMinimum: [null, NumberValidators.validateRange(0, 18)],
       imageURL: '',
       city: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(25)]],
       offerType: ['exchange', [Validators.required]],
@@ -99,7 +97,7 @@ export class OfferAddComponent implements OnInit {
   save() {
     console.log(this.offerFormGroup);
     console.log('Saved: ' + JSON.stringify(this.offerFormGroup.value));
-    if(this.offerFormGroup.valid) {
+    if (this.offerFormGroup.valid) {
       if (this.offerFormGroup.dirty) {
         // const offerToUpdate = {...this.offer, ...this.offerFormGroup.value}
         const offerToSave = {
@@ -136,8 +134,6 @@ export class OfferAddComponent implements OnInit {
     } else {
       this.errorMessage = 'Please correct the validation errors'
     }
-
-
   }
 
   private onSaveComplete() {

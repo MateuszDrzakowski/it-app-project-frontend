@@ -5,6 +5,12 @@
 
   <div class="card-body" *ngIf="offer">
     <div class="row">
+      <img src="{{offer.toy.imageURL}}"
+           [title]="offer.toy.toyName"
+           [style.width.px]="imageWidth"
+           [style.margin.px]="imageMargin">
+    </div>
+    <div class="row">
       Toy Name: {{offer.toy.toyName}}
     </div>
     <div class="row">
@@ -43,5 +49,5 @@
   </div>
 </div>
 
-<app-comment-list [userId]="userId"></app-comment-list>
+<app-comment-list *ngIf="userId" [userId]="userId"></app-comment-list>
 
