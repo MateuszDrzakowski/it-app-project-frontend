@@ -1,1 +1,30 @@
-<p>user-profile works!</p>
+<div class="card">
+  <div class="card-header">
+    User profile: {{userProfile?.username}}
+  </div>
+
+  <div class="card-body" *ngIf="userProfile">
+    <div class="row">
+      First Name: {{userProfile.firstName}}
+    </div>
+    <div class="row">
+      Last Name: {{userProfile.lastName}}
+    </div>
+    <div class="row">
+      Phone number: {{userProfile.phone}}
+    </div>
+  </div>
+
+  <div class="card-footer">
+    <button *ngIf="userProfile?.id" class="btn-outline-primary btn-sm"
+            [routerLink]="['/user-profile', userProfile?.id]">
+      View Profile
+    </button>
+    <button *ngIf="userProfile?.id" class="btn-outline-primary btn-sm"
+            [routerLink]="['/offers/user-offers/', userProfile?.id]">
+      Check user offers
+    </button>
+  </div>
+</div>
+
+<app-comment-list [userId]="userId"></app-comment-list>

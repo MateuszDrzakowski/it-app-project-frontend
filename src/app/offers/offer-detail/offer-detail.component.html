@@ -36,7 +36,12 @@
             (click)="onBack()">
       <i class="fa fa-chevron-circle-left"></i> Back
     </button>
+    <button *ngIf="offer?.userId" class="btn-outline-primary btn-sm"
+            [routerLink]="['/user-profile', offer?.userId]">
+      View Profile
+    </button>
   </div>
 </div>
 
 <app-comment-list [userId]="userId"></app-comment-list>
+

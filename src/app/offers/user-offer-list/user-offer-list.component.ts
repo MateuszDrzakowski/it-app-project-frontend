@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
 import {OfferService} from "../offer.service";
 import {IOffer} from "../ioffer";
+import {ActivatedRoute, Router} from "@angular/router";
 
 interface Alert {
   type: string;
@@ -33,12 +34,16 @@ export class UserOfferListComponent implements OnInit {
   offers: IOffer[] = [];
   // @ts-ignore
   alerts: Alert[] = [];
+  userId: number;
 
-  constructor(private offerService: OfferService) {
+  constructor(private offerService: OfferService, private route: ActivatedRoute, private router: Router) {
+    this.userId = Number(this.route.snapshot.paramMap.get('userId'));
+
   }
 
   ngOnInit(): void {
-    this.sub = this.offerService.getOffersWithQueryParams(null, null, null, null, null, 1)
+    console.log("this userId: ", this.userId)
+    this.sub = this.offerService.getOffersWithQueryParams(null, null, null, null, null, this.userId)
       .subscribe({
         next: offers => {
           this.offers = offers;

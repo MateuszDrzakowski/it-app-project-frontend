@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CommentListComponent } from './comment-list/comment-list.component';
 import {SharedModule} from "../shared/shared.module";
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import {RouterModule} from "@angular/router";
 
 
 
@@ -16,7 +17,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     ],
     imports: [
         CommonModule,
-        SharedModule
+        SharedModule,
+        RouterModule
     ]
 })
 export class ProfilesModule { }

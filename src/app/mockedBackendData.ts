@@ -53,6 +53,13 @@ export class MockedBackendData implements InMemoryDbService {
           "lastName": "Bush",
           "phone": "100200300",
           "username": "username100"
+        },
+        {
+          "id": 1,
+          "firstName": "John",
+          "lastName": "Bush",
+          "phone": "100200300",
+          "username": "username100"
         }
       ];
     const comment: IComment[] =
@@ -80,6 +87,22 @@ export class MockedBackendData implements InMemoryDbService {
           "content": "Good seller again 222!",
           "create_date": "20-02-2019 10:45",
           "rating": 2
+        },
+        {
+          "id": 7,
+          "authorId": 3,
+          "targetUserId": 1,
+          "content": "Good seller again 222!",
+          "create_date": "20-02-2019 10:45",
+          "rating": 2
+        },
+        {
+          "id": 8,
+          "authorId": 3,
+          "targetUserId": 1,
+          "content": "Good seller again 2323222!",
+          "create_date": "20-02-2019 10:47",
+          "rating": 4.5
         }
       ]
 
