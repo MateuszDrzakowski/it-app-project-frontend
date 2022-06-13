@@ -1,53 +1,53 @@
-<div class="card">
-  <div class="card-header">
-    {{pageTitle + ': ' + offer?.toy?.toyName}}
-  </div>
+<mat-card class="example-card">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title>{{pageTitle + ': ' + offer?.toy?.toyName}}</mat-card-title>
+  </mat-card-header>
 
-  <div class="card-body" *ngIf="offer">
-    <div class="row">
-      <img src="{{offer.toy.imageURL}}"
+  <mat-card-content *ngIf="offer">
+
+
+  <mat-grid-list cols="2" rowHeight="1.5:1">
+    <mat-grid-tile>
+      <mat-card class="example-card">
+
+      <mat-list role="list">
+        <mat-list-item role="listitem">Toy Name: {{offer.toy.toyName}}</mat-list-item>
+        <mat-list-item role="listitem">Toy type: {{offer.toy.toyType}}</mat-list-item>
+        <mat-list-item role="listitem">Age minimum: {{offer.toy.ageMinimum}}</mat-list-item>
+        <mat-list-item role="listitem">Toy description: {{offer.toy.description}}</mat-list-item>
+        <mat-list-item role="listitem">City: {{offer.city}}</mat-list-item>
+        <mat-list-item role="listitem">Delivery option: {{offer.deliveryOption}}</mat-list-item>
+        <mat-list-item role="listitem">Offer type: {{offer.offerType}}</mat-list-item>
+        <mat-list-item role="listitem" *ngIf="offer.offerType != 'exchange'">Price: {{offer.price | currency:'PLN':'symbol':'1.2-2'}}</mat-list-item>
+      </mat-list>
+      </mat-card>
+      <mat-card class="example-card">
+
+        <img src="{{offer.toy.imageURL}}"
+             [title]="offer.toy.toyName"
+             [style.width.px]="imageWidth"
+             [style.margin.px]="imageMargin">
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile>
+
+      <div class="wrapper">
+        <div class="item" *ngFor="let urls of imageURLS">
+          <img src={{urls}}
            [title]="offer.toy.toyName"
-           [style.width.px]="imageWidth"
+           [style.width.px]="350"
            [style.margin.px]="imageMargin">
-    </div>
-    <div class="row">
-      Toy Name: {{offer.toy.toyName}}
-    </div>
-    <div class="row">
-      Toy type: {{offer.toy.toyType}}
-    </div>
-    <div class="row">
-      Age minimum: {{offer.toy.ageMinimum}}
-    </div>
-    <div class="row">
-      Toy description: {{offer.toy.description}}
-    </div>
-    <div class="row">
-      City: {{offer.city}}
-    </div>
-    <div class="row">
-      Delivery option: {{offer.deliveryOption}}
-    </div>
-    <div class="row">
-      Offer type: {{offer.offerType}}
-    </div>
-    <div class="row" *ngIf="offer.offerType != 'exchange'">
-      Price: {{offer.price | currency:'PLN':'symbol':'1.2-2'}}
-    </div>
-  </div>
+        </div>
+      </div>
+    </mat-grid-tile>
 
-  <div class="card-footer">
-    <button class="btn btn-outline-secondary"
-            style="width:80px"
-            (click)="onBack()">
-      <i class="fa fa-chevron-circle-left"></i> Back
-    </button>
-    <button *ngIf="offer?.userId" class="btn-outline-primary btn-sm"
-            [routerLink]="['/user-profile', offer?.userId]">
-      View Profile
-    </button>
-  </div>
-</div>
+  </mat-grid-list>
+  </mat-card-content>
 
-<app-comment-list *ngIf="userId" [userId]="userId"></app-comment-list>
-
+  <mat-card-actions>
+    <button mat-button (click)="onBack()">Back</button>
+    <button mat-button *ngIf="offer?.userId"
+            [routerLink]="['/user-profile', offer?.userId]"> View Profile</button>
+  </mat-card-actions>
+</mat-card>

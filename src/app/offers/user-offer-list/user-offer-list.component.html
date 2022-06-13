@@ -1,74 +1,76 @@
 <p *ngFor="let alert of alerts">
 <div *ngFor="let alert of alerts" class="alert alert-success" role="alert" (click)="close(alert)">{{ alert.message }}</div>
 
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{pageTitle}}</mat-card-title>
+  </mat-card-header>
 
-<div class="card">
-  <div class="card-header">
-    {{pageTitle}}
-  </div>
+  <table mat-table [dataSource]="dataSource" matSort>
 
-  <div class="card-body">
-    <div class="table-responsive">
-      <table class="table" *ngIf="offers.length">
-        <thead>
-        <tr>
-          <th>
-            <button class="btn btn-primary"
-                    (click)="toggleImage()">
-              {{showImage ? "Hide" : "Show"}} image
-            </button>
-          </th>
-          <th>Toy name</th>
-          <th>Type</th>
-          <th>Age-minimum</th>
-          <th>Offer-Type</th>
-          <th>City</th>
-          <th>Price</th>
-          <th>Rating</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let offer of offers">
-          <td>
-            <img *ngIf="showImage"
-                 src="{{offer.toy.imageURL}}"
-                 [title]="offer.toy.toyName"
-                 [style.width.px]="imageWidth"
-                 [style.margin.px]="imageMargin">
-          </td>
-          <td>
-            <a [routerLink]="['/offers', offer.id]">
-              {{offer.toy.toyName | convertToSpaces:"-"}}
-            </a>
-          </td>
-          <td>{{offer.toy.toyType}}</td>
-          <td>{{offer.toy.ageMinimum}}</td>
-          <td>{{offer.offerType}}</td>
-          <td>{{offer.city}}</td>
-          <td>{{offer.offerType != "exchange" ? (offer.price | currency:'PLN':'symbol':'1.2-2') : "-.--"}}</td>
-          <td>
-            <star-rating [rating]="3.5"
-                         (ratingClicked)="onRatingClicked($event)"></star-rating>
-          </td>
-          <td>
-            <button class="btn-outline-primary btn-sm"
-                    [routerLink]="['/offers', offer.id, 'edit']">
-              Edit
-            </button>
+    <ng-container matColumnDef="imageURL">
+      <th mat-header-cell *matHeaderCellDef> Image </th>
+      <td mat-cell *matCellDef="let offer"> <img [src]="offer.toy.imageURL"
+                                                 [title]="offer.toy.toyName"
+                                                 [style.width.px]="imageWidth"
+                                                 [style.margin.px]="imageMargin"/> </td>
+    </ng-container>
 
-            <button class="btn btn-outline-warning"
-                    type="button"
-                    title="Delete"
-                    (click)="deleteOffer(offer.id)">
-              Delete
-            </button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Offer Id </th>
+      <td mat-cell *matCellDef="let offer"> {{offer.id}} </td>
+    </ng-container>
 
-  </div>
+    <ng-container matColumnDef="toyName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Toy Name </th>
+      <td mat-cell *matCellDef="let offer"> {{offer.toy.toyName}} </td>
+    </ng-container>
 
-</div>
+    <ng-container matColumnDef="toyType">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Toy Type </th>
+      <td mat-cell *matCellDef="let offer"> {{offer.toy.toyType}} </td>
+    </ng-container>
 
+    <ng-container matColumnDef="ageMinimum">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Age Minimum </th>
+      <td mat-cell *matCellDef="let offer">{{offer.toy.ageMinimum}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="offerType">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Offer Type </th>
+      <td mat-cell *matCellDef="let offer">{{offer.offerType}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="city">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> City </th>
+      <td mat-cell *matCellDef="let offer">{{offer.city}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
+      <td mat-cell *matCellDef="let offer">{{offer.offerType != "exchange" ? (offer.price | currency:'PLN':'symbol':'1.2-2') : "-.--"}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let offer">
+        <button mat-raised-button [routerLink]="['/offers', offer.id]">View</button>
+        <button *ngIf="authenticationService.loggedUserId" mat-raised-button [routerLink]="['/offers', offer.id, 'edit']">Edit</button>
+        <button *ngIf="authenticationService.loggedUserId" mat-raised-button color="accent" (click)="deleteOffer(offer.id)">Delete</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No data matching the filters</td>
+    </tr>
+  </table>
+
+  <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]"
+                 showFirstLastButtons
+                 aria-label="Select page of periodic elements">
+  </mat-paginator>
+</mat-card>

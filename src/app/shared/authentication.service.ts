@@ -1,37 +1,47 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Router} from "@angular/router";
 import {HttpClient, HttpErrorResponse, HttpParams} from "@angular/common/http";
 import {Observable, throwError} from "rxjs";
 import {IOffer} from "../offers/ioffer";
 import {catchError, tap} from "rxjs/operators";
+import {IAuth} from "./iauth";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  private loginUrl = "http://localhost:8080/login";
-  private loggedUserId: Number | null = null;
+  private loginUrl = "http://localhost:8080/api/login";
+  public loggedUser: IAuth | null = null;
+  public loggedUserId: number | null = null;
+
 
   constructor(private http: HttpClient,
-              private router: Router) { }
+              private router: Router) {
+  }
 
-  login(username: string | null, password: number | null): Observable<Number> {
+  login(username: string | null, password: string | null): Observable<IAuth[]> {
 
     let params = new HttpParams();
-    if(username != null) {
+    if (username != null) {
       params = params.append('username', username);
     }
-    if(password != null) {
+    if (password != null) {
       params = params.append('password', password);
     }
-    return this.http.get<Number>(this.loginUrl)
+    return this.http.get<IAuth[]>(this.loginUrl, {params: params})
       .pipe(
         tap(data => {
-          console.log("login():, ", JSON.stringify(data));
-            this.loggedUserId = data;
-
-          },
+            console.log("login():, ", JSON.stringify(data));
+            if (data.length != 0) {
+              this.loggedUser = data[0];
+              this.loggedUserId = this.loggedUser.id;
+            } else {
+              this.loggedUser = null;
+              this.loggedUserId = null;
+            }
+          }
+          ,
           catchError(this.handleError))
       );
   }

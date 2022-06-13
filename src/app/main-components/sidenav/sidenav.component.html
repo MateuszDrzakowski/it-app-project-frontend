@@ -1,0 +1,31 @@
+<mat-sidenav-container class="app-sidenav-container">
+  <mat-sidenav #sidenav class="app-sidenav mat-elevation-z10"
+               [mode]="isScreenSmall ? 'over' : 'side'"
+               [opened]="!isScreenSmall"
+               *ngIf="authenticationService.loggedUserId">
+    <mat-toolbar color="primary">
+      Exchange/Buy Requests
+    </mat-toolbar>
+    <mat-nav-list>
+      <mat-list-item *ngFor="let swapRequest of swapRequests">
+        <a matLine [routerLink]="['/exchange-offer', swapRequest.id]">
+          <mat-icon matLine svgIcon="{{swapRequest.avatar}}"></mat-icon>
+          <p matLine>
+            <br>
+            <span>{{ swapRequest.targetToyName | json }} </span>
+            <span>for</span>
+            <span>{{ swapRequest.inExchangeToyName | json }} </span>
+          </p>
+        </a>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <div class="app-sidenav-content">
+    <app-toolbar (toggleSidenav)="sidenav.toggle()"></app-toolbar>
+    <div class="wrapper">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+</mat-sidenav-container>

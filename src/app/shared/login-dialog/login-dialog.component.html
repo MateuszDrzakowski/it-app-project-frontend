@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>Log in</h2>
+<mat-dialog-content>
+  <div class="example-container">
+    <mat-form-field appearance="fill">
+      <mat-label>Enter your username</mat-label>
+      <input matInput placeholder="exampleUserName" required [formControl]="usernameFormControl">
+      <mat-error *ngIf="usernameFormControl.invalid">{{getErrorMessage(usernameFormControl)}}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Enter your password</mat-label>
+      <input matInput [type]="hide ? 'password' : 'text'" [formControl]="passwordFormControl">
+      <mat-error *ngIf="passwordFormControl.invalid">{{getErrorMessage(passwordFormControl)}}</mat-error>
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+
+
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button color="primary" (click)="logIn()" [disabled]="!usernameFormControl.valid || !passwordFormControl.valid">
+    <mat-icon>login</mat-icon> Log In
+  </button>
+  <button mat-button color="primary" (click)="dismiss()">
+    <mat-icon>close</mat-icon> Cancel
+  </button>
+</mat-dialog-actions>

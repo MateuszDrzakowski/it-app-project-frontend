@@ -8,6 +8,7 @@ import {CommentAddComponent} from './comment-add/comment-add.component';
 import {ReactiveFormsModule} from "@angular/forms";
 import {InMemoryWebApiModule} from "angular-in-memory-web-api";
 import {MockedBackendData} from "../mockedBackendData";
+import {MaterialModule} from "../material/material.module";
 
 
 @NgModule({
@@ -25,7 +26,7 @@ import {MockedBackendData} from "../mockedBackendData";
     RouterModule,
     ReactiveFormsModule,
     InMemoryWebApiModule.forRoot(MockedBackendData),
-
+    MaterialModule,
   ]
 })
 export class ProfilesModule {

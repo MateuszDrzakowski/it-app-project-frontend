@@ -3,6 +3,7 @@ import {Offer} from "./offers/offer";
 import {IOffer} from "./offers/ioffer";
 import {IUser} from "./profiles/iuser";
 import {IComment} from "./profiles/icomment";
+import {ISwapRequest} from "./swapRequests/iswapRequest";
 
 
 export class MockedBackendData implements InMemoryDbService {
@@ -18,7 +19,7 @@ export class MockedBackendData implements InMemoryDbService {
             "toyType": "Skateboard",
             "description": "Toy description",
             "ageMinimum": 7,
-            "imageURL": "assets/images/xbox-controller.png"
+            "imageURL": "assets/images/skateboard.jpg"
           },
           "city": "Wrocław",
           "offerType": "exchange",
@@ -35,7 +36,7 @@ export class MockedBackendData implements InMemoryDbService {
             "toyType": "Small Truck",
             "description": "Toy description",
             "ageMinimum": 3,
-            "imageURL": "assets/images/xbox-controller.png"
+            "imageURL": "assets/images/truck2.jpg"
           },
           "city": "Długołęka",
           "offerType": "sell",
@@ -82,18 +83,42 @@ export class MockedBackendData implements InMemoryDbService {
     const profile: IUser[] =
       [
         {
-          "id": 4,
-          "firstName": "John",
-          "lastName": "Bush",
-          "phone": "100200300",
-          "username": "username100"
-        },
-        {
           "id": 1,
           "firstName": "John",
           "lastName": "Bush",
           "phone": "100200300",
-          "username": "username100"
+          "username": "username100",
+          "createDate": "19-02-2019",
+          "avatar": 'svg-1'
+
+        },
+        {
+          "id": 2,
+          "firstName": "John",
+          "lastName": "Bush",
+          "phone": "100200300",
+          "username": "username100",
+          "createDate": "19-02-2022",
+          "avatar": 'svg-2'
+        },
+        {
+          "id": 3,
+          "firstName": "asas",
+          "lastName": "Bushd",
+          "phone": "100200300",
+          "username": "username100",
+          "createDate": "19-02-2019",
+          "avatar": 'svg-3'
+
+        },
+        {
+          "id": 4,
+          "firstName": "John",
+          "lastName": "Bush",
+          "phone": "100200300",
+          "username": "username100",
+          "createDate": "19-02-2022",
+          "avatar": 'svg-4'
         }
       ];
     const comment: IComment[] =
@@ -103,7 +128,7 @@ export class MockedBackendData implements InMemoryDbService {
           "authorId": 2,
           "targetUserId": 4,
           "content": "Good seller!",
-          "create_date": "19-02-2019 10:58",
+          "create_date": "2022-06-11 10:58",
           "rating": 1
         },
         {
@@ -111,7 +136,7 @@ export class MockedBackendData implements InMemoryDbService {
           "authorId": 3,
           "targetUserId": 4,
           "content": "Good seller again!",
-          "create_date": "20-02-2019 22:22",
+          "create_date": "2022-06-10 22:22",
           "rating": 2
         },
         {
@@ -119,7 +144,7 @@ export class MockedBackendData implements InMemoryDbService {
           "authorId": 3,
           "targetUserId": 5,
           "content": "Good seller again 222!",
-          "create_date": "20-02-2019 10:45",
+          "create_date": "2022-06-09 10:45",
           "rating": 2
         },
         {
@@ -127,7 +152,7 @@ export class MockedBackendData implements InMemoryDbService {
           "authorId": 3,
           "targetUserId": 1,
           "content": "Good seller again 222!",
-          "create_date": "20-02-2019 10:45",
+          "create_date": "2022-06-12 10:45",
           "rating": 2
         },
         {
@@ -135,13 +160,61 @@ export class MockedBackendData implements InMemoryDbService {
           "authorId": 3,
           "targetUserId": 1,
           "content": "Good seller again 2323222!",
-          "create_date": "20-02-2019 10:47",
+          "create_date": "2022-05-10 10:47",
           "rating": 4.5
         }
+      ];
+    const login =
+      [
+        {
+          "id": 1,
+          "username": 'first',
+          "password": 'first',
+        },
+        {
+          "id": 2,
+          "username": 'second',
+          "password": 'second',
+        }
+      ];
+    const swaprequests: ISwapRequest[] =
+      [
+        {
+          "id": 7,
+          "requestorUserId": 2,
+          "targetUserId": 1,
+          "inExchangeOfferId": 4,
+          "targetOfferId": 5,
+          "targetToyName": 'LandyAchtz Skateboard',
+          "inExchangeToyName": "Small Truck",
+          "acceptedByRequestor": false,
+          "acceptedByTargetUser": false,
+          "offerType": "exchange",
+          "finalizedRequestor": false,
+          "finalizedTarget": false,
+          "visible": true,
+          "avatar": 'svg-1'
+        },
+        {
+          "id": 7,
+          "requestorUserId": 3,
+          "targetUserId": 1,
+          "inExchangeOfferId": 6,
+          "targetOfferId": 7,
+          "targetToyName": 'LandyAchtz Skateboard',
+          "inExchangeToyName": "Small Truck",
+          "acceptedByRequestor": false,
+          "acceptedByTargetUser": false,
+          "offerType": "exchange",
+          "finalizedRequestor": false,
+          "finalizedTarget": false,
+          "visible": true,
+          "avatar": 'svg-2'
+        }
       ]
+    ;
 
-
-    return { offers, profile, comment };
+    return {offers, profile, comment, login, swaprequests};
   }
 
 

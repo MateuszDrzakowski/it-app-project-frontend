@@ -1,0 +1,56 @@
+<mat-card class="example-card">
+  <mat-card-header >
+    <mat-card-title style="text-align: center">Exchange Offer</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+
+
+    <mat-grid-list cols="2" rowHeight="1.5:1">
+      <mat-grid-tile *ngIf="requestorOffer">
+        <mat-card class="example-card" >
+          <mat-card-header>In exchange offer:</mat-card-header>
+          <mat-list role="list">
+            <mat-list-item role="listitem">Toy Name: {{requestorOffer?.toy?.toyName}}</mat-list-item>
+            <mat-list-item role="listitem">Toy type: {{requestorOffer?.toy?.toyType}}</mat-list-item>
+            <mat-list-item role="listitem">Age minimum: {{requestorOffer.toy.ageMinimum}}</mat-list-item>
+            <mat-list-item role="listitem">Toy description: {{requestorOffer.toy.description}}</mat-list-item>
+            <mat-list-item role="listitem">City: {{requestorOffer.city}}</mat-list-item>
+          </mat-list>
+        </mat-card>
+        <mat-card class="example-card">
+          <img src="{{requestorOffer.toy.imageURL}}"
+               [title]="requestorOffer.toy.toyName"
+               [style.width.px]="imageWidth"
+               [style.margin.px]="imageMargin">
+        </mat-card>
+      </mat-grid-tile>
+
+      <mat-grid-tile *ngIf="targetOffer">
+        <mat-card class="example-card">
+          <mat-card-header>My Offer:</mat-card-header>
+          <mat-list role="list">
+            <mat-list-item role="listitem">Toy Name: {{targetOffer.toy.toyName}}</mat-list-item>
+            <mat-list-item role="listitem">Toy type: {{targetOffer.toy.toyType}}</mat-list-item>
+            <mat-list-item role="listitem">Age minimum: {{targetOffer.toy.ageMinimum}}</mat-list-item>
+            <mat-list-item role="listitem">Toy description: {{targetOffer.toy.description}}</mat-list-item>
+            <mat-list-item role="listitem">City: {{targetOffer.city}}</mat-list-item>
+          </mat-list>
+        </mat-card>
+        <mat-card class="example-card">
+          <img src="{{targetOffer.toy.imageURL}}"
+               [title]="targetOffer.toy.toyName"
+               [style.width.px]="imageWidth"
+               [style.margin.px]="imageMargin">
+        </mat-card>
+      </mat-grid-tile>
+
+    </mat-grid-list>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-button (click)="onBack()">Back</button>
+    <button mat-raised-button color="primary" (click)="Accept()"> Accept </button>
+    <button mat-raised-button color="accent" (click)="Decline()"> Decline </button>
+  </mat-card-actions>
+</mat-card>

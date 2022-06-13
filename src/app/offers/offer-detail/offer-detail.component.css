@@ -1,0 +1,43 @@
+mat-grid-tile {
+  background: #e2eeff;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+
+mat-card {
+  margin: 5px;
+}
+
+#carousel {
+  width: 100%;
+  height: 150px;
+  background-color: #ff0000;
+
+  overflow: visible;
+  white-space:nowrap;
+}
+
+#carousel .slide {
+  display: inline-block;
+}
+
+.wrapper {
+  max-height: 500px;
+  display: flex;
+  overflow-x: auto;
+  flex-direction: column;
+}
+
+
+.wrapper::-webkit-scrollbar{
+
+}
+
+.wrapper .item{
+  min-width: 500px;
+  height: 500px;
+  line-height: 110px;
+  text-align: center;
+  marign: 2px;
+}

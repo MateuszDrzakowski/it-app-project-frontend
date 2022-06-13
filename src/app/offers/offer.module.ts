@@ -1,18 +1,23 @@
-import { NgModule } from '@angular/core';
+import {NgModule} from '@angular/core';
 import {OfferListComponent} from "./offer-list/offer-list.component";
 import {OfferDetailComponent} from "./offer-detail/offer-detail.component";
 import {ConvertToSpacesPipe} from "../shared/custom_pipes/convert-to-spaces.pipe";
 import {RouterModule} from "@angular/router";
 import {OfferDetailGuard} from "./offer-detail/offer-detail.guard";
-import { SharedModule } from '../shared/shared.module';
-import { OfferAddComponent } from './offer-add/offer-add.component';
+import {SharedModule} from '../shared/shared.module';
+import {OfferAddComponent} from './offer-add/offer-add.component';
 import {ReactiveFormsModule} from "@angular/forms";
-import { OfferEditComponent } from './offer-edit/offer-edit.component';
+import {OfferEditComponent} from './offer-edit/offer-edit.component';
 import {OfferEditGuard} from "./offer-edit/offer-edit.guard";
 import {InMemoryWebApiModule} from "angular-in-memory-web-api";
 import {MockedBackendData} from "../mockedBackendData";
-import { UserOfferListComponent } from './user-offer-list/user-offer-list.component';
+import {UserOfferListComponent} from './user-offer-list/user-offer-list.component';
 import {ProfilesModule} from "../profiles/profiles.module";
+import {MatButtonToggleModule} from "@angular/material/button-toggle";
+import {MaterialModule} from "../material/material.module";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { ExchangeOfferComponent } from './exchange-offer/exchange-offer.component';
+
 
 @NgModule({
   declarations: [
@@ -22,6 +27,7 @@ import {ProfilesModule} from "../profiles/profiles.module";
     OfferAddComponent,
     OfferEditComponent,
     UserOfferListComponent,
+    ExchangeOfferComponent,
   ],
   imports: [
     RouterModule.forChild([
@@ -37,12 +43,16 @@ import {ProfilesModule} from "../profiles/profiles.module";
         canDeactivate: [OfferEditGuard],
         component: OfferEditComponent
       },
-      {path: 'add-offer', component: OfferAddComponent}
+      {path: 'add-offer', component: OfferAddComponent},
+      {path: 'exchange-offer/:id', component: ExchangeOfferComponent}
     ]),
     SharedModule,
     ReactiveFormsModule,
     InMemoryWebApiModule.forRoot(MockedBackendData),
-    ProfilesModule
+    ProfilesModule,
+    MatButtonToggleModule,
+    MaterialModule,
+    BrowserAnimationsModule
   ]
 })
 export class OfferModule { }

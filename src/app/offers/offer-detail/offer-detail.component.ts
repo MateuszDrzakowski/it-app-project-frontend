@@ -18,6 +18,7 @@ export class OfferDetailComponent implements OnInit {
   userId: number | null = null;
   imageWidth: number = 300;
   imageMargin: number = 2;
+  imageURLS = ["assets/images/xbox-controller.png", "assets/images/truck2.jpg", "assets/images/xbox-controller.png"]
 
   constructor(private route: ActivatedRoute,
               private offerService: OfferService,
@@ -26,8 +27,6 @@ export class OfferDetailComponent implements OnInit {
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.pageTitle += `: ${id}`;
-
     this.sub = this.getOffer(id);
   }
 

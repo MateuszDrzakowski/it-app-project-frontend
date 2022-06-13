@@ -1,8 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {Subscription} from "rxjs";
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {of, Subscription} from "rxjs";
 import {OfferService} from "../offer.service";
 import {IOffer} from "../ioffer";
 import {ActivatedRoute, Router} from "@angular/router";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatSort} from "@angular/material/sort";
+import {MatTableDataSource} from "@angular/material/table";
+import {AuthenticationService} from "../../shared/authentication.service";
 
 interface Alert {
   type: string;
@@ -25,8 +29,8 @@ const ALERTS: Alert[] = [{
 })
 export class UserOfferListComponent implements OnInit {
 
-  pageTitle: string = 'Your Offers List';
-  imageWidth: number = 50;
+  pageTitle: string = 'Offers of user id: ';
+  imageWidth: number = 100;
   imageMargin: number = 2;
   showImage: boolean = false;
   errorMessage: string = '';
@@ -36,9 +40,17 @@ export class UserOfferListComponent implements OnInit {
   alerts: Alert[] = [];
   userId: number;
 
-  constructor(private offerService: OfferService, private route: ActivatedRoute, private router: Router) {
-    this.userId = Number(this.route.snapshot.paramMap.get('userId'));
+  // @ts-ignore
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  // @ts-ignore
+  @ViewChild(MatSort) sort: MatSort;
+  displayedColumns: string[] = ['imageURL', 'toyName', 'toyType', 'ageMinimum', 'offerType', 'city', 'price', 'actions'];
+  // @ts-ignore
+  dataSource: MatTableDataSource<IOffer>;
 
+  constructor(private offerService: OfferService, private route: ActivatedRoute, private router: Router,
+              public authenticationService: AuthenticationService) {
+    this.userId = Number(this.route.snapshot.paramMap.get('userId'));
   }
 
   ngOnInit(): void {
@@ -50,7 +62,13 @@ export class UserOfferListComponent implements OnInit {
     this.sub = this.offerService.getOffersWithQueryParams(city, ageMin, offerType, price, deliveryOption, userId)
       .subscribe({
         next: offers => {
-          this.offers = offers;
+          this.offers = offers
+          this.dataSource = new MatTableDataSource<IOffer>(offers);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+          if(offers != null && offers.length != 0) {
+            this.pageTitle = this.pageTitle + offers[0].userId;
+          }
         },
         error: error => this.errorMessage = error
       });
@@ -84,6 +102,7 @@ export class UserOfferListComponent implements OnInit {
 
   private deletedSuccessfully() {
     this.alerts.push(ALERTS[0]);
+    this.getOffers(null, null, null, null, null, this.userId);
   }
 
   private deletionNotSuccessful(err: string) {

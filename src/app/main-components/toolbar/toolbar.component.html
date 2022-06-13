@@ -1,0 +1,33 @@
+<mat-toolbar color="primary">
+  <button mat-button class="sidenav-toggle" (click)="toggleSidenav.emit()">
+    <mat-icon>menu</mat-icon>
+  </button>
+  {{pageTitle}}
+  <button routerLink="/welcome" mat-button>
+    <mat-icon>home</mat-icon>
+    Home
+  </button>
+  <button routerLink="/offers" mat-button>
+    <mat-icon>list</mat-icon>
+    Offers list
+  </button>
+  <button *ngIf="authenticationService.loggedUserId" routerLink="/add-offer" mat-button>
+    <mat-icon>add</mat-icon>
+    Add offer
+  </button>
+  <button *ngIf="authenticationService.loggedUserId" routerLink="offers/user-offers/{{authenticationService.loggedUserId}}" mat-button>
+    <mat-icon>face</mat-icon>
+    My offers
+  </button>
+
+  <span class="example-spacer"></span>
+
+  <button mat-button [matMenuTriggerFor]="menu">
+    <mat-icon>person</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button *ngIf="!authenticationService.loggedUserId" mat-menu-item (click)="openLogInDialog()">Log in</button>
+    <button *ngIf="authenticationService.loggedUserId" mat-menu-item>Log out</button>
+  </mat-menu>
+
+</mat-toolbar>

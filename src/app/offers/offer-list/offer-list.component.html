@@ -1,4 +1,4 @@
-<div class="card">
+<div class="mat-elevation-z8" style="background: #e2eeff">
   <div class="card-header">
     Filter offers:
   </div>
@@ -10,7 +10,7 @@
 
 
       <div class="form-group row mb-2">
-        <label class="col-md-2 col-form-label pt-0">Filtery by:</label>
+        <label class="col-md-2 col-form-label pt-0"></label>
         <div class="col-md-8">
           <div class="form-check form-check-inline">
             <input class="btn-check"
@@ -18,8 +18,8 @@
                    type="checkbox"
                    autocomplete="off"
                    formControlName="cityFlag"
-            (change)="flagCheckboxChanged('city')">
-            <label class="btn btn-outline-secondary" for="cityFlagCheckbox">City</label>
+                   (change)="flagCheckboxChanged('city')">
+            <label class="btn btn-outline-primary"  for="cityFlagCheckbox">City</label>
           </div>
           <div class="form-check form-check-inline">
             <input class="btn-check"
@@ -169,59 +169,14 @@
           </div>
         </div>
       </div>
-<!--      <div *ngIf="offerSearchFormGroup.get('toyDetailsFlag')?.value">-->
-<!--        <div formArrayName="toyDetails"-->
-<!--             *ngFor="let details of toyDetails.controls; let i=index">-->
-<!--          <div [formGroupName]="i">-->
-<!--            <div class="form-group row mb-2">-->
-<!--              <label class="col-md-2 col-form-label"-->
-<!--                     attr.for="{{'toyTypeId' + i}}}">Toy Type</label>-->
-<!--              <div class="col-md-8">-->
-<!--                <input class="form-control"-->
-<!--                       id="{{'toyTypeId' + i}}}"-->
-<!--                       type="text"-->
-<!--                       placeholder="Toy Type"-->
-<!--                       formControlName="toyType"-->
-<!--                       [ngClass]="{'is-invalid': toyTypeValidationMessage}"/>-->
-<!--                <span class="invalid-feedback">-->
-<!--              {{toyTypeValidationMessage}}-->
-<!--            </span>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--            <div class="form-group row mb-2">-->
-<!--              <label class="col-md-2 col-form-label"-->
-<!--                     attr.for="{{'priceId' + i}}">Price</label>-->
-<!--              <div class="col-md-8">-->
-<!--                <input class="form-control"-->
-<!--                       id="{{'priceId' + i}}"-->
-<!--                       type="text"-->
-<!--                       placeholder="Price"-->
-<!--                       formControlName="price"-->
-<!--                       [ngClass]="{'is-invalid': priceValidationMessage}"/>-->
-<!--                <span class="invalid-feedback">-->
-<!--              {{priceValidationMessage}}-->
-<!--            </span>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-
-<!--        <div class="form-group row mb-2">-->
-<!--          <div class="col-md-4">-->
-<!--            <button class="btn btn-outline-primary"-->
-<!--                    type="button"-->
-<!--                    [disabled]="!toyDetails.valid"-->
-<!--                    (click)="addToyDetails()">-->
-<!--              Add another Toy Details-->
-<!--            </button>-->
-<!--          </div>-->
-<!--        </div>-->
-
-<!--      </div>-->
-
 
       <div class="form-group row mb-2">
-        <div class="offset-md-2 col-md-4">
+        <div class="offset-md-2 col-md-4"
+             *ngIf="offerSearchFormGroup.get('cityFlag')?.value
+                  || offerSearchFormGroup.get('ageMinimumFlag')?.value
+                  || offerSearchFormGroup.get('offerTypeFlag')?.value
+                  || offerSearchFormGroup.get('deliveryOptionFlag')?.value
+                  || offerSearchFormGroup.get('priceFlag')?.value">
           <button class="btn btn-primary mr-3"
                   type="submit"
                   style="width:80px"
@@ -240,63 +195,75 @@
   </div>
 </div>
 
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
 
-<div class="card">
-  <div class="card-header">
-    {{pageTitle}}
-  </div>
+    <ng-container matColumnDef="imageURL">
+      <th mat-header-cell *matHeaderCellDef> Image </th>
+      <td mat-cell *matCellDef="let offer"> <img [src]="offer.toy.imageURL"
+                                                 [title]="offer.toy.toyName"
+                                                 [style.width.px]="imageWidth"
+                                                 [style.margin.px]="imageMargin"/> </td>
+    </ng-container>
 
-  <div class="card-body">
-    <div class="table-responsive">
-      <table class="table" *ngIf="offers.length">
-        <thead>
-        <tr>
-          <th>
-            <button class="btn btn-primary"
-                    (click)="toggleImage()">
-              {{showImage ? "Hide" : "Show"}} image
-            </button>
-          </th>
-          <th>Toy name</th>
-          <th>Type</th>
-          <th>Age-minimum</th>
-          <th>Offer-Type</th>
-          <th>City</th>
-          <th>Price</th>
-          <th>Rating</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let offer of offers">
-          <td>
-            <img *ngIf="showImage"
-                 src="{{offer.toy.imageURL}}"
-                 [title]="offer.toy.toyName"
-                 [style.width.px]="imageWidth"
-                 [style.margin.px]="imageMargin">
-          </td>
-          <td>
-            <a [routerLink]="['/offers', offer.id]">
-              {{offer.toy.toyName | convertToSpaces:"-"}}
-            </a>
-          </td>
-          <td>{{offer.toy.toyType}}</td>
-          <td>{{offer.toy.ageMinimum}}</td>
-          <td>{{offer.offerType}}</td>
-          <td>{{offer.city}}</td>
-          <td>{{offer.offerType != "exchange" ? (offer.price | currency:'PLN':'symbol':'1.2-2') : "-.--"}}</td>
-          <td>
-            <star-rating [rating]="3.5"
-                         (ratingClicked)="onRatingClicked($event)"></star-rating>
-          </td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Offer Id </th>
+      <td mat-cell *matCellDef="let offer"> {{offer.id}} </td>
+    </ng-container>
 
-  </div>
+    <ng-container matColumnDef="toyName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Toy Name </th>
+      <td mat-cell *matCellDef="let offer"> {{offer.toy.toyName}} </td>
+    </ng-container>
 
+    <ng-container matColumnDef="toyType">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Toy Type </th>
+      <td mat-cell *matCellDef="let offer"> {{offer.toy.toyType}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="ageMinimum">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Age Minimum </th>
+      <td mat-cell *matCellDef="let offer">{{offer.toy.ageMinimum}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="offerType">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Offer Type </th>
+      <td mat-cell *matCellDef="let offer">{{offer.offerType}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="city">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> City </th>
+      <td mat-cell *matCellDef="let offer">{{offer.city}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
+      <td mat-cell *matCellDef="let offer">{{offer.offerType != "exchange" ? (offer.price | currency:'PLN':'symbol':'1.2-2') : "-.--"}}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+        [routerLink]="['/offers', row.id]"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No data matching the filters</td>
+    </tr>
+  </table>
+
+  <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]"
+                 showFirstLastButtons
+                 aria-label="Select page of periodic elements">
+  </mat-paginator>
 </div>
+
+
+
+
+
+
+
+
 
 <div>
   <br> Value: {{ offerSearchFormGroup.value | json }}

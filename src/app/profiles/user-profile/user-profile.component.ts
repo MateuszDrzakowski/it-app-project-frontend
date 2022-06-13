@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Location} from '@angular/common'
 import {ActivatedRoute, Router} from "@angular/router";
-import {OfferService} from "../../offers/offer.service";
 import {UserService} from "../user.service";
 import {IUser} from "../iuser";
 import {Subscription} from "rxjs";
@@ -28,12 +27,17 @@ export class UserProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getUserProfile();
+    this.route.params.subscribe(
+      params => {
+        this.userId = params['userId'];
+        this.getUserProfile(this.userId);
+      }
+    );
   }
 
-  private getUserProfile() {
-    console.log("this userId: ", this.userId)
-    this.sub = this.userService.getProfile(this.userId)
+  private getUserProfile(userId: number) {
+    console.log("this userId: ", userId)
+    this.sub = this.userService.getProfile(userId)
       .subscribe({
         next: userProfile => {
           this.userProfile = userProfile;

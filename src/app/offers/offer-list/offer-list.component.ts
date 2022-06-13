@@ -1,10 +1,14 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
+import {Component, OnDestroy, OnInit, ViewChild} from "@angular/core";
 import {IOffer} from "../ioffer";
 import {OfferService} from "../offer.service";
 import {Subscription} from "rxjs";
 import {FormArray, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {GenericValidator} from "../../shared/generic.validator";
 import {NumberValidators} from "../../shared/number.validator";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatSort} from "@angular/material/sort";
+import {MatTableDataSource} from "@angular/material/table";
+import {IComment} from "../../profiles/icomment";
 
 @Component({
   selector: 'offer-list',
@@ -13,7 +17,7 @@ import {NumberValidators} from "../../shared/number.validator";
 })
 export class OfferListComponent implements OnInit, OnDestroy {
   pageTitle: string = 'Toys List';
-  imageWidth: number = 50;
+  imageWidth: number = 120;
   imageMargin: number = 2;
   showImage: boolean = false;
   errorMessage: string = '';
@@ -25,9 +29,15 @@ export class OfferListComponent implements OnInit, OnDestroy {
   displayMessage: { [key: string]: string } = {};
   private readonly validationMessages: { [key: string]: { [key: string]: string } };
   private genericValidator: GenericValidator;
-
-
   private _listFilter: string = '';
+
+  // @ts-ignore
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  // @ts-ignore
+  @ViewChild(MatSort) sort: MatSort;
+  displayedColumns: string[] = ['imageURL', 'toyName', 'toyType', 'ageMinimum', 'offerType', 'city', 'price'];
+  // @ts-ignore
+  dataSource: MatTableDataSource<IOffer>;
 
   get toyDetails(): FormArray {
     return <FormArray> this.offerSearchFormGroup.get('toyDetails');
@@ -97,6 +107,9 @@ export class OfferListComponent implements OnInit, OnDestroy {
     this.sub = this.offerService.getOffers().subscribe({
       next: offers => {
         this.offers = offers;
+        this.dataSource = new MatTableDataSource<IOffer>(offers);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       },
       error: error => this.errorMessage = error
     });
@@ -107,6 +120,9 @@ export class OfferListComponent implements OnInit, OnDestroy {
       .subscribe({
         next: offers => {
           this.offers = offers;
+          this.dataSource = new MatTableDataSource<IOffer>(offers);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
         },
         error: error => this.errorMessage = error
       });
