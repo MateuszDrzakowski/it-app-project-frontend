@@ -25,7 +25,7 @@ import {MaterialModule} from "../material/material.module";
     SharedModule,
     RouterModule,
     ReactiveFormsModule,
-    InMemoryWebApiModule.forRoot(MockedBackendData),
+    // InMemoryWebApiModule.forRoot(MockedBackendData),
     MaterialModule,
   ]
 })

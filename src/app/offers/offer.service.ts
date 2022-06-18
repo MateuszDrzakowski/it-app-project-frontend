@@ -3,20 +3,19 @@ import {IOffer} from "./ioffer";
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Observable, of, throwError} from "rxjs";
 import {catchError, map, tap} from "rxjs/operators";
-import {Offer} from "./offer";
 import {ISwapRequest} from "../swapRequests/iswapRequest";
+import {ConfigurationURLService} from "../shared/configurationURL";
 
 @Injectable({
   providedIn: 'root'
 })
 export class OfferService {
 
-  private backendAddress = "localhost:5200" //localhost address of the backend (update accordingly to your server address)
-  private offersUrl = "http://localhost:8080/api/offers";
-  private offerUrl = "http://localhost:8080/api/offers";
-  private swaprequestsUrl = "http://localhost:8080/api/swaprequests"
+  private offersUrl = this.configurationURLService.offersUrl;
+  private offerUrl = this.configurationURLService.offerUrl;
+  private swapRequestsUrl = this.configurationURLService.swapRequestsUrl;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private configurationURLService: ConfigurationURLService) {
   }
 
   getOffers(): Observable<IOffer[]> {
@@ -36,7 +35,7 @@ export class OfferService {
   }
 
   getSwapRequest(id: number): Observable<ISwapRequest> {
-    return this.http.get<ISwapRequest>(`${this.swaprequestsUrl}/${id}`).pipe(
+    return this.http.get<ISwapRequest>(`${this.swapRequestsUrl}/${id}`).pipe(
       tap(data => console.log("getSwapRequest: ", JSON.stringify(data)),
         catchError(this.handleError))
     );
@@ -75,7 +74,7 @@ export class OfferService {
       params = params.append('requesterUserId', userId);
       // params = params.append('targetUserId', userId);
     }
-    return this.http.get<ISwapRequest[]>(this.swaprequestsUrl, {params: params}).pipe(
+    return this.http.get<ISwapRequest[]>(this.swapRequestsUrl, {params: params}).pipe(
       tap(data => console.log("getSwapRequestsWithQueryParams():, ", JSON.stringify(data)),
         catchError(this.handleError))
     );
@@ -87,7 +86,7 @@ export class OfferService {
       params = params.append('targetUserId', userId);
       // params = params.append('targetUserId', userId);
     }
-    return this.http.get<ISwapRequest[]>(this.swaprequestsUrl, {params: params}).pipe(
+    return this.http.get<ISwapRequest[]>(this.swapRequestsUrl, {params: params}).pipe(
       tap(data => console.log("getSwapRequestsWithQueryParams():, ", JSON.stringify(data)),
         catchError(this.handleError))
     );
@@ -117,7 +116,7 @@ export class OfferService {
 
   updateSwapRequest(swapRequest: ISwapRequest): Observable<ISwapRequest> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const url = `${this.swaprequestsUrl}/${swapRequest.id}`;
+    const url = `${this.swapRequestsUrl}/${swapRequest.id}`;
     return this.http.put(url, swapRequest, {headers: headers})
       .pipe(
         tap(() => console.log('updateSwapRequest: ' + swapRequest)),
@@ -129,7 +128,7 @@ export class OfferService {
   saveSwapRequest(swapRequest: ISwapRequest): Observable<ISwapRequest> {
     console.log('saveSwapRequest passed object: ' + JSON.stringify(swapRequest))
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const url = this.swaprequestsUrl;
+    const url = this.swapRequestsUrl;
     return this.http.post<ISwapRequest>(url, swapRequest, {headers: headers})
       .pipe(
         tap(data => console.log('saveSwapRequest returned object: ' + JSON.stringify(data))),
@@ -163,7 +162,7 @@ export class OfferService {
 
   deleteSwapRequest(id: number | null): Observable<{}> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const url = `${this.swaprequestsUrl}/${id}`;
+    const url = `${this.swapRequestsUrl}/${id}`;
     return this.http.delete<IOffer>(url, {headers: headers})
       .pipe(
         tap(data => console.log('deleteSwapRequest: ' + id)),

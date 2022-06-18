@@ -4,15 +4,16 @@ import {Observable, throwError} from "rxjs";
 import {IOffer} from "../offers/ioffer";
 import {catchError, tap} from "rxjs/operators";
 import {IUser} from "./iuser";
+import {ConfigurationURLService} from "../shared/configurationURL";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private userUrl = "http://localhost:8080/api/profile";
+  private userUrl = this.configurationURLService.userProfileUrl;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private configurationURLService: ConfigurationURLService) {
   }
 
   getProfile(id: number): Observable<IUser> {
