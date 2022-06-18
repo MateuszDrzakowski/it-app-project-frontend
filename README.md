@@ -4,13 +4,14 @@
 
 ## Development server - IMPORTANT:
 
+
 In order to run the application you need to install npm and then angular cli.
 Here's the link with instructions: https://angular.io/guide/setup-local.
 
 When you have installed npm and ng, then run `ng serve` within the project folder in order to run the application. 
 Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-In file src/app/offers/offer.service.ts is stored configuration to the backend server.
+In file src/app/shared/configurationURL.ts is stored configuration of the URLs to the backend server.
 Adjust backendAddress property accordingly to your backend running server address in order to communicate properly betwen the front and the backend.
 
 
