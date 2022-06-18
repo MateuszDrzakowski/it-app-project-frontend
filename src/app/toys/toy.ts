@@ -5,4 +5,5 @@ export interface IToy {
   description: string;
   ageMinimum: number;
   imageURL: string;
+  additionalImageURLs: string[] | null;
 }

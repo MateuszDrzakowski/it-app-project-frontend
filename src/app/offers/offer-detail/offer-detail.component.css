@@ -41,3 +41,18 @@ mat-card {
   text-align: center;
   marign: 2px;
 }
+
+::-webkit-scrollbar {
+  width: 4px;
+  overflow-y: scroll;
+  background: #d3d3d3;
+  box-shadow: inset 0 0 4px #c7c6c6;
+  transform: scaleX(-1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #5d5def;
+  border-radius: 10px;
+  transform: scaleX(-1);
+
+}

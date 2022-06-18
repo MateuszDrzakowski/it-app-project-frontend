@@ -19,7 +19,8 @@ export class MockedBackendData implements InMemoryDbService {
             "toyType": "Skateboard",
             "description": "Toy description",
             "ageMinimum": 7,
-            "imageURL": "assets/images/skateboard.jpg"
+            "imageURL": "assets/images/skateboard.jpg",
+            "additionalImageURLs": ["assets/images/xbox-controller.png", "assets/images/truck2.jpg", "assets/images/xbox-controller.png"]
           },
           "city": "Wrocław",
           "offerType": "exchange",
@@ -36,7 +37,9 @@ export class MockedBackendData implements InMemoryDbService {
             "toyType": "Small Truck",
             "description": "Toy description",
             "ageMinimum": 3,
-            "imageURL": "assets/images/truck2.jpg"
+            "imageURL": "assets/images/truck2.jpg",
+            "additionalImageURLs": ["assets/images/xbox-controller.png", "assets/images/truck2.jpg", "assets/images/xbox-controller.png"]
+
           },
           "city": "Długołęka",
           "offerType": "sell",
@@ -53,7 +56,9 @@ export class MockedBackendData implements InMemoryDbService {
             "toyType": "Skateboard",
             "description": "Toy description",
             "ageMinimum": 4,
-            "imageURL": "assets/images/xbox-controller.png"
+            "imageURL": "assets/images/xbox-controller.png",
+            "additionalImageURLs": ["assets/images/xbox-controller.png", "assets/images/truck2.jpg", "assets/images/xbox-controller.png"]
+
           },
           "city": "Wrocław",
           "offerType": "exchange",
@@ -70,7 +75,9 @@ export class MockedBackendData implements InMemoryDbService {
             "toyType": "Small Truck",
             "description": "Toy description",
             "ageMinimum": 3,
-            "imageURL": "assets/images/xbox-controller.png"
+            "imageURL": "assets/images/xbox-controller.png",
+            "additionalImageURLs": ["assets/images/xbox-controller.png", "assets/images/truck2.jpg", "assets/images/xbox-controller.png"]
+
           },
           "city": "Długołęka",
           "offerType": "sell",

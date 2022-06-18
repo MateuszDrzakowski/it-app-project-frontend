@@ -109,7 +109,8 @@ export class OfferAddComponent implements OnInit {
             "toyType": this.offerFormGroup.value.toyType,
             "description": this.offerFormGroup.value.toyDescription,
             "ageMinimum": this.offerFormGroup.value.ageMinimum,
-            "imageURL": "assets/images/xbox-controller.png"
+            "imageURL": "assets/images/xbox-controller.png",
+            "additionalImageURLs": ["assets/images/xbox-controller.png", "assets/images/truck2.jpg", "assets/images/xbox-controller.png"]
           },
           "city": this.offerFormGroup.value.city,
           "offerType": this.offerFormGroup.value.offerType,
