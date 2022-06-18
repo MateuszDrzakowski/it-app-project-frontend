@@ -1,0 +1,31 @@
+mat-selection-list {
+  /*flex-grow: 1;*/
+  /*border: 3px solid green;*/
+  overflow: auto;
+  /*direction: rtl;*/
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  overflow-y: scroll;
+  background: #d3d3d3;
+  box-shadow: inset 0 0 4px #c7c6c6;
+  transform: scaleX(-1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #5d5def;
+  border-radius: 10px;
+  transform: scaleX(-1);
+
+}
+
+mat-list-option {
+  text-align: left;
+  border-bottom: 3px solid #2e4096;
+}
+
+mat-grid-tile-header.mat-grid-tile-header {
+  background: #2e4096;
+
+}

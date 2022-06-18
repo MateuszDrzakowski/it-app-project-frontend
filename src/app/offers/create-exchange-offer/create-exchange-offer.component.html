@@ -1,0 +1,76 @@
+<mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title style="text-align: center"></mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+
+
+    <mat-grid-list cols="2" rowHeight="1.5:1">
+      <mat-grid-tile *ngIf="requesterOffers">
+        <mat-grid-tile-header>Select one of your toy, which you offer to exchange for:</mat-grid-tile-header>
+
+        <mat-selection-list #requesterOffersSelectionList [multiple]="false" (selectionChange)="onSelection($event, requesterOffersSelectionList.selectedOptions.selected)"style="height: 80%; width: 100%">
+          <mat-list-option *ngFor="let offer of requesterOffers" [value]="offer" style="height: 300px">
+            <mat-grid-list cols="5" rowHeight="300px">
+              <mat-grid-tile
+                [colspan]="3"
+                [rowspan]="1"
+                [style.background]="tiles[0].color">
+                <img src="{{offer.toy.imageURL}}"
+                     [title]="offer.toy.toyName"
+                     [style.width.px]="200"
+                     [style.margin.px]="imageMargin">
+              </mat-grid-tile>
+              <mat-grid-tile
+                [colspan]="2"
+                [rowspan]="1"
+                [style.background]="tiles[1].color">
+                <mat-list role="list">
+                  <mat-list-item role="listitem">Toy Name: {{offer.toy.toyName}}</mat-list-item>
+                  <mat-list-item role="listitem">Toy type: {{offer.toy.toyType}}</mat-list-item>
+                  <mat-list-item role="listitem">Age minimum: {{offer.toy.ageMinimum}}</mat-list-item>
+                  <mat-list-item role="listitem">Toy description: {{offer.toy.description}}</mat-list-item>
+                  <mat-list-item role="listitem">City: {{offer.city}}</mat-list-item>
+                </mat-list>
+              </mat-grid-tile>
+            </mat-grid-list>
+          </mat-list-option>
+          <p>
+            Option selected: {{requesterOffersSelectionList.selectedOptions.selected[0]?.value}}
+          </p>
+        </mat-selection-list>
+
+
+
+      </mat-grid-tile>
+
+
+      <mat-grid-tile *ngIf="targetOffer">
+        <mat-grid-tile-header>Toy you want to get:</mat-grid-tile-header>
+
+        <mat-card class="example-card">
+          <mat-card-header>Offer details:</mat-card-header>
+          <mat-list role="list">
+            <mat-list-item role="listitem">Id: {{targetOffer.id}}</mat-list-item>
+            <mat-list-item role="listitem">Toy Name: {{targetOffer.toy.toyName}}</mat-list-item>
+            <mat-list-item role="listitem">Toy type: {{targetOffer.toy.toyType}}</mat-list-item>
+            <mat-list-item role="listitem">Age minimum: {{targetOffer.toy.ageMinimum}}</mat-list-item>
+            <mat-list-item role="listitem">Toy description: {{targetOffer.toy.description}}</mat-list-item>
+            <mat-list-item role="listitem">City: {{targetOffer.city}}</mat-list-item>
+          </mat-list>
+        </mat-card>
+          <img src="{{targetOffer.toy.imageURL}}"
+               [title]="targetOffer.toy.toyName"
+               [style.width.px]="imageWidth"
+               [style.margin.px]="imageMargin">
+      </mat-grid-tile>
+
+    </mat-grid-list>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="create()"> Create</button>
+    <button mat-raised-button color="accent" (click)="onBack()"> Cancel</button>
+  </mat-card-actions>
+</mat-card>
