@@ -5,19 +5,25 @@ import {Observable, throwError} from "rxjs";
 import {IOffer} from "../offers/ioffer";
 import {catchError, tap} from "rxjs/operators";
 import {IAuth} from "./iauth";
+import {ConfigurationURLService} from "./configurationURL";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
 
-  private loginUrl = "http://localhost:8080/api/login";
+  //mocked backend:
+  // public backendAddress = "http://localhost:8080/api/" //localhost address of the backend (update accordingly to your server address)
+  //real backend:
+  public backendAddress = "localhost:5200/" //localhost address of the backend (update accordingly to your server address)
+  public loginUrl = this.backendAddress + "login";
+  public logoutUrl = this.backendAddress + "logout";
   public loggedUser: IAuth | null = null;
   public loggedUserId: number | null = null;
 
-
   constructor(private http: HttpClient,
-              private router: Router) {
+              private router: Router,
+              private configurationURLService: ConfigurationURLService) {
   }
 
   login(username: string | null, password: string | null): Observable<IAuth[]> {
@@ -47,7 +53,7 @@ export class AuthenticationService {
   }
 
   logout(): Observable<any> {
-    return this.http.get<Number>(this.loginUrl)
+    return this.http.get<Number>(this.logoutUrl)
       .pipe(
         tap(data =>
             console.log("logout():, ", JSON.stringify(data)),

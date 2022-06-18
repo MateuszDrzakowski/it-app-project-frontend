@@ -51,7 +51,7 @@ import { CreateExchangeOfferComponent } from './create-exchange-offer/create-exc
     ]),
     SharedModule,
     ReactiveFormsModule,
-    InMemoryWebApiModule.forRoot(MockedBackendData),
+    // InMemoryWebApiModule.forRoot(MockedBackendData),
     ProfilesModule,
     MatButtonToggleModule,
     MaterialModule,
