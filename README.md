@@ -12,7 +12,11 @@ When you have installed npm and ng, then run `ng serve` within the project folde
 Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 !!!!!!!!!!!!!!!!!! IMPORTANT !!!!!!!!!!!!!!!!
-In file src/app/shared/configurationURL.ts AND src/app/shared/authentication.service.spec.ts is stored configuration of the URLs to the backend server.
+In files 
+src/app/shared/configurationURL.ts 
+AND 
+src/app/shared/authentication.service.spec.ts 
+is stored configuration of the URLs to the backend server.
 Adjust backendAddress property accordingly to your backend running server address in order to communicate properly betwen the front and the backend.
 !!!!!!!!!!!!!!!!!!!!!!!!
 
