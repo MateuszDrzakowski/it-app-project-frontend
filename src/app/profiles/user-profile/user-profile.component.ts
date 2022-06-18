@@ -4,6 +4,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {UserService} from "../user.service";
 import {IUser} from "../iuser";
 import {Subscription} from "rxjs";
+import {AuthenticationService} from "../../shared/authentication.service";
 
 @Component({
   selector: 'app-user-profile',
@@ -22,7 +23,8 @@ export class UserProfileComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private userService: UserService,
               private router: Router,
-              private location: Location) {
+              private location: Location,
+              public authenticationService: AuthenticationService) {
     this.userId = Number(this.route.snapshot.paramMap.get('userId'));
   }
 

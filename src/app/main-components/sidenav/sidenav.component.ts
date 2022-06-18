@@ -20,9 +20,11 @@ export class SidenavComponent implements OnInit {
   showFiller = false;
   // @ts-ignore
   public isScreenSmall: boolean;
-  swapRequests: ISwapRequest[] | null = null;
+  mySwapRequests: ISwapRequest[] | null = null;
+  swapRequestsToMe: ISwapRequest[] | null = null;
   errorMessage: string = '';
   sub!: Subscription;
+  sub2!: Subscription;
   // @ts-ignore
   subscription: Subscription;
 
@@ -51,13 +53,29 @@ export class SidenavComponent implements OnInit {
     this.subscription = source.subscribe(val => this.getOffersWithQueryParams());
   }
 
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
+    this.sub2.unsubscribe();
+  }
+
   private getOffersWithQueryParams() {
     if (this.authenticationService.loggedUserId) {
       console.log('logged: ', this.authenticationService.loggedUserId)
-      this.sub = this.offerService.getSwapRequestsWithQueryParams(this.authenticationService.loggedUserId)
+      this.sub = this.offerService.getSwapRequestsByRequesterUserId(this.authenticationService.loggedUserId)
         .subscribe({
           next: offers => {
-            this.swapRequests = offers;
+            if(offers != null) {
+              this.mySwapRequests = offers;
+            }
+          },
+          error: error => this.errorMessage = error
+        });
+      this.sub2 = this.offerService.getSwapRequestsByTargetUserId(this.authenticationService.loggedUserId)
+        .subscribe({
+          next: offers => {
+            if(offers != null) {
+              this.swapRequestsToMe = offers;
+            }
           },
           error: error => this.errorMessage = error
         });

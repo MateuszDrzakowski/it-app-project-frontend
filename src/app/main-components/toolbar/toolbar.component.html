@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-  <button mat-button class="sidenav-toggle" (click)="toggleSidenav.emit()">
+  <button mat-button class="sidenav-toggle" (click)="toggleSidenav.emit()" *ngIf="authenticationService?.loggedUserId">
     <mat-icon>menu</mat-icon>
   </button>
   {{pageTitle}}
@@ -27,7 +27,7 @@
   </button>
   <mat-menu #menu="matMenu">
     <button *ngIf="!authenticationService.loggedUserId" mat-menu-item (click)="openLogInDialog()">Log in</button>
-    <button *ngIf="authenticationService.loggedUserId" mat-menu-item>Log out</button>
+    <button *ngIf="authenticationService.loggedUserId" mat-menu-item (click)="logOut()">Log out</button>
   </mat-menu>
 
 </mat-toolbar>

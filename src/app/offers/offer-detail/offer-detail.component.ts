@@ -3,6 +3,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {IOffer} from "../ioffer";
 import {OfferService} from "../offer.service";
 import {Subscription} from "rxjs";
+import {AuthenticationService} from "../../shared/authentication.service";
 
 @Component({
   selector: 'app-offer-detail',
@@ -22,7 +23,8 @@ export class OfferDetailComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private offerService: OfferService,
-              private router: Router) {
+              private router: Router,
+              public authenticationService: AuthenticationService) {
   }
 
   ngOnInit(): void {

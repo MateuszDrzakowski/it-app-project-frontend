@@ -6,16 +6,30 @@
     <mat-toolbar color="primary">
       Exchange/Buy Requests
     </mat-toolbar>
+    <mat-toolbar color="secondary">
+      My Requests
+    </mat-toolbar>
     <mat-nav-list>
-      <mat-list-item *ngFor="let swapRequest of swapRequests">
+      <mat-list-item *ngFor="let swapRequest of mySwapRequests">
+        <a matLine [routerLink]="['/exchange-offer', swapRequest.id]" *ngIf="swapRequest.acceptedByTargetUser != false">
+          <mat-icon matLine svgIcon='svg-1'></mat-icon>
+          <span mat-line>{{"Requested Toy: " +  swapRequest.targetToyName }} </span>
+          <span mat-line>{{"Offered Toy: " +  swapRequest.inExchangeToyName }} </span>
+          <span mat-line>{{"Response: " + (swapRequest.acceptedByTargetUser == null ? "waiting for answer" : swapRequest.acceptedByTargetUser ? "accepted" : "declined")}} </span>
+        </a>
+      </mat-list-item>
+    </mat-nav-list>
+
+    <mat-toolbar color="secondary">
+      Requests made to me
+    </mat-toolbar>
+    <mat-nav-list>
+      <mat-list-item *ngFor="let swapRequest of swapRequestsToMe">
         <a matLine [routerLink]="['/exchange-offer', swapRequest.id]">
-          <mat-icon matLine svgIcon="{{swapRequest.avatar}}"></mat-icon>
-          <p matLine>
-            <br>
-            <span>{{ swapRequest.targetToyName | json }} </span>
-            <span>for</span>
-            <span>{{ swapRequest.inExchangeToyName | json }} </span>
-          </p>
+          <mat-icon matLine svgIcon='svg-1'></mat-icon>
+          <span mat-line>{{"Requested Toy: " +  swapRequest.targetToyName }} </span>
+          <span mat-line>{{"Offered Toy: " +  swapRequest.inExchangeToyName }} </span>
+          <span mat-line>{{"Response: " + (swapRequest.acceptedByTargetUser == null ? "click to make an answer" : swapRequest.acceptedByTargetUser ? "accepted" : "declined")}} </span>
         </a>
       </mat-list-item>
     </mat-nav-list>

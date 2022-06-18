@@ -66,6 +66,19 @@ export class UserOfferListComponent implements OnInit {
           this.dataSource = new MatTableDataSource<IOffer>(offers);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
+          this.dataSource.sortingDataAccessor = (item, property) => {
+            switch (property) {
+              case 'toyName':
+                return item.toy.toyName;
+              case 'toyType':
+                return item.toy.toyType;
+              case 'ageMinimum':
+                return item.toy.ageMinimum;
+              default:
+                // @ts-ignore
+                return item[property];
+            }
+          }
           if(offers != null && offers.length != 0) {
             this.pageTitle = this.pageTitle + offers[0].userId;
           }

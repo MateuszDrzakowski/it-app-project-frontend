@@ -49,10 +49,10 @@ export class OfferService {
       params = params.append('city', city);
     }
     if(ageMin != null) {
-      params = params.append('age_min', ageMin);
+      params = params.append('ageMinimum', ageMin);
     }
     if(offerType != null) {
-      params = params.append('offer_type', offerType);
+      params = params.append('offerType', offerType);
     }
     if(price != null) {
       params = params.append('price', price);
@@ -69,10 +69,23 @@ export class OfferService {
     );
   }
 
-  getSwapRequestsWithQueryParams(userId: number | null): Observable<ISwapRequest[]> {
+  getSwapRequestsByRequesterUserId(userId: number | null): Observable<ISwapRequest[]> {
+    let params = new HttpParams();
+    if(userId != null) {
+      params = params.append('requesterUserId', userId);
+      // params = params.append('targetUserId', userId);
+    }
+    return this.http.get<ISwapRequest[]>(this.swaprequestsUrl, {params: params}).pipe(
+      tap(data => console.log("getSwapRequestsWithQueryParams():, ", JSON.stringify(data)),
+        catchError(this.handleError))
+    );
+  }
+
+  getSwapRequestsByTargetUserId(userId: number | null): Observable<ISwapRequest[]> {
     let params = new HttpParams();
     if(userId != null) {
       params = params.append('targetUserId', userId);
+      // params = params.append('targetUserId', userId);
     }
     return this.http.get<ISwapRequest[]>(this.swaprequestsUrl, {params: params}).pipe(
       tap(data => console.log("getSwapRequestsWithQueryParams():, ", JSON.stringify(data)),
@@ -104,22 +117,22 @@ export class OfferService {
 
   updateSwapRequest(swapRequest: ISwapRequest): Observable<ISwapRequest> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const url = `${this.offerUrl}/${swapRequest.id}`;
+    const url = `${this.swaprequestsUrl}/${swapRequest.id}`;
     return this.http.put(url, swapRequest, {headers: headers})
       .pipe(
-        tap(() => console.log('updateSwapRequest: ' + swapRequest.targetToyName)),
+        tap(() => console.log('updateSwapRequest: ' + swapRequest)),
         map(() => swapRequest),
         catchError(this.handleError)
       );
   }
 
   saveSwapRequest(swapRequest: ISwapRequest): Observable<ISwapRequest> {
-    console.log('saveOffer passed object: ' + JSON.stringify(swapRequest))
+    console.log('saveSwapRequest passed object: ' + JSON.stringify(swapRequest))
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const url = this.offerUrl;
+    const url = this.swaprequestsUrl;
     return this.http.post<ISwapRequest>(url, swapRequest, {headers: headers})
       .pipe(
-        tap(data => console.log('saveOffer returned object: ' + JSON.stringify(data))),
+        tap(data => console.log('saveSwapRequest returned object: ' + JSON.stringify(data))),
         catchError(this.handleError)
       );
   }

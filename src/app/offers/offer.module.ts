@@ -17,6 +17,7 @@ import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MaterialModule} from "../material/material.module";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { ExchangeOfferComponent } from './exchange-offer/exchange-offer.component';
+import { CreateExchangeOfferComponent } from './create-exchange-offer/create-exchange-offer.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { ExchangeOfferComponent } from './exchange-offer/exchange-offer.componen
     OfferEditComponent,
     UserOfferListComponent,
     ExchangeOfferComponent,
+    CreateExchangeOfferComponent,
   ],
   imports: [
     RouterModule.forChild([
@@ -44,7 +46,8 @@ import { ExchangeOfferComponent } from './exchange-offer/exchange-offer.componen
         component: OfferEditComponent
       },
       {path: 'add-offer', component: OfferAddComponent},
-      {path: 'exchange-offer/:id', component: ExchangeOfferComponent}
+      {path: 'exchange-offer/:id', component: ExchangeOfferComponent},
+      {path: 'create-exchange-offer/:offerId', component: CreateExchangeOfferComponent}
     ]),
     SharedModule,
     ReactiveFormsModule,

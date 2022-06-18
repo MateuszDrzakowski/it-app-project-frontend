@@ -196,7 +196,7 @@
 </div>
 
 <div class="mat-elevation-z8">
-  <table mat-table [dataSource]="dataSource" matSort>
+  <table mat-table [dataSource]="dataSource" matSort *ngIf="dataSource">
 
     <ng-container matColumnDef="imageURL">
       <th mat-header-cell *matHeaderCellDef> Image </th>
@@ -255,16 +255,4 @@
                  showFirstLastButtons
                  aria-label="Select page of periodic elements">
   </mat-paginator>
-</div>
-
-
-
-
-
-
-
-
-
-<div>
-  <br> Value: {{ offerSearchFormGroup.value | json }}
 </div>

@@ -49,5 +49,7 @@
     <button mat-button (click)="onBack()">Back</button>
     <button mat-button *ngIf="offer?.userId"
             [routerLink]="['/user-profile', offer?.userId]"> View Profile</button>
+    <button mat-button color="primary" *ngIf="authenticationService?.loggedUserId"
+            [routerLink]="['/create-exchange-offer', offer?.id]"> Create Exchange Offer</button>
   </mat-card-actions>
 </mat-card>

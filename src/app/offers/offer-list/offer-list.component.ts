@@ -8,7 +8,6 @@ import {NumberValidators} from "../../shared/number.validator";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {MatTableDataSource} from "@angular/material/table";
-import {IComment} from "../../profiles/icomment";
 
 @Component({
   selector: 'offer-list',
@@ -110,6 +109,21 @@ export class OfferListComponent implements OnInit, OnDestroy {
         this.dataSource = new MatTableDataSource<IOffer>(offers);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.dataSource.sortingDataAccessor = (item, property) => {
+          switch (property) {
+            case 'toyName':
+              return item.toy.toyName;
+            case 'toyType':
+              return item.toy.toyType;
+            case 'ageMinimum':
+              return item.toy.ageMinimum;
+            case 'imageURL':
+              return item.toy.imageURL;
+            default:
+              // @ts-ignore
+              return item[property];
+          }
+        }
       },
       error: error => this.errorMessage = error
     });

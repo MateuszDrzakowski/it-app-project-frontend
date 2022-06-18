@@ -31,4 +31,4 @@
   </mat-card>
 </div>
 
-<app-comment-add [targetUserId]="userId" (savedComment)="onCommentSaved($event)"></app-comment-add>
+<app-comment-add *ngIf="authenticationService.loggedUserId" [targetUserId]="userId" (savedComment)="onCommentSaved($event)"></app-comment-add>

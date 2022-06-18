@@ -180,36 +180,54 @@ export class MockedBackendData implements InMemoryDbService {
     const swaprequests: ISwapRequest[] =
       [
         {
-          "id": 7,
-          "requestorUserId": 2,
+          "id": 1,
+          "requesterUserId": 2,
           "targetUserId": 1,
           "inExchangeOfferId": 4,
           "targetOfferId": 5,
-          "targetToyName": 'LandyAchtz Skateboard',
-          "inExchangeToyName": "Small Truck",
-          "acceptedByRequestor": false,
-          "acceptedByTargetUser": false,
-          "offerType": "exchange",
-          "finalizedRequestor": false,
-          "finalizedTarget": false,
-          "visible": true,
-          "avatar": 'svg-1'
+          "acceptedByTargetUser": null,
+          "targetToyName": 'Landy achtz',
+          "inExchangeToyName": 'Small Truck'
         },
         {
-          "id": 7,
-          "requestorUserId": 3,
+          "id": 2,
+          "requesterUserId": 3,
           "targetUserId": 1,
           "inExchangeOfferId": 6,
           "targetOfferId": 7,
-          "targetToyName": 'LandyAchtz Skateboard',
-          "inExchangeToyName": "Small Truck",
-          "acceptedByRequestor": false,
+          "acceptedByTargetUser": null,
+          "targetToyName": 'Landy achtz',
+          "inExchangeToyName": 'Small Truck'
+        },
+        {
+          "id": 3,
+          "requesterUserId": 1,
+          "targetUserId": 3,
+          "inExchangeOfferId": 6,
+          "targetOfferId": 7,
+          "acceptedByTargetUser": null,
+          "targetToyName": 'Landy achtz',
+          "inExchangeToyName": 'Small Truck'
+        },
+        {
+          "id": 5,
+          "requesterUserId": 1,
+          "targetUserId": 2,
+          "inExchangeOfferId": 4,
+          "targetOfferId": 5,
           "acceptedByTargetUser": false,
-          "offerType": "exchange",
-          "finalizedRequestor": false,
-          "finalizedTarget": false,
-          "visible": true,
-          "avatar": 'svg-2'
+          "targetToyName": 'Landy achtz',
+          "inExchangeToyName": 'Small Truck'
+        },
+        {
+          "id": 4,
+          "requesterUserId": 1,
+          "targetUserId": 1,
+          "inExchangeOfferId": 4,
+          "targetOfferId": 5,
+          "acceptedByTargetUser": false,
+          "targetToyName": 'Landy achtz',
+          "inExchangeToyName": 'Small Truck'
         }
       ]
     ;
