@@ -13,9 +13,9 @@ Navigate to `http://localhost:4200/`. The app will automatically reload if you c
 
 !!!!!!!!!!!!!!!!!! IMPORTANT !!!!!!!!!!!!!!!! <br />
 In files: <br />
-- src/app/shared/configurationURL.ts <br />
+src/app/shared/configurationURL.ts <br />
 AND <br />
-- src/app/shared/authentication.service.spec.ts <br />
+src/app/shared/authentication.service.spec.ts <br />
 is stored configuration of the URLs to the backend server. <br />
 Adjust backendAddress property accordingly to your backend running server address in order to communicate properly betwen the front and the backend.
 !!!!!!!!!!!!!!!!!!!!!!!!
