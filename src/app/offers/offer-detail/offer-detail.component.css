@@ -39,7 +39,7 @@ mat-card {
   height: 500px;
   line-height: 110px;
   text-align: center;
-  marign: 2px;
+  margin: 2px;
 }
 
 ::-webkit-scrollbar {

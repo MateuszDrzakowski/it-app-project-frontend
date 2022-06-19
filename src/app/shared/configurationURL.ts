@@ -14,7 +14,7 @@ export class ConfigurationURLService {
   // public userProfileUrl = this.backendAddress + "profile";
 
   //With real backend
-  public backendAddress = "localhost:5200/" //localhost address of the backend (update accordingly to your server address)
+  public backendAddress = "https://tea.ghostila.com/" //localhost address of the backend (update accordingly to your server address)
   public offersUrl = this.backendAddress + "offers";
   public offerUrl = this.backendAddress + "offer";
   public swapRequestsUrl = this.backendAddress + "swaprequests"
