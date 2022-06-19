@@ -21,7 +21,9 @@ export class OfferService {
   getOffers(): Observable<IOffer[]> {
     const requestUrl = this.offersUrl;
     console.log(`getOffers() REQUEST URL: ${requestUrl}`);
-    return this.http.get<IOffer[]>(requestUrl)
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    // headers.append('Access-Control-Allow-Origin', '*');
+    return this.http.get<IOffer[]>(requestUrl, {headers: headers})
       .pipe(
         tap(data => console.log("getOffers() RESPONSE: ", JSON.stringify(data)),
           catchError(this.handleError))
@@ -31,7 +33,9 @@ export class OfferService {
   getOffer(id: number): Observable<IOffer> {
     const requestUrl = `${this.offerUrl}/${id}`;
     console.log(`getOffer() REQUEST URL: ${requestUrl}`);
-    return this.http.get<IOffer>(requestUrl).pipe(
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    // headers.append('Access-Control-Allow-Origin', '*');
+    return this.http.get<IOffer>(requestUrl, {headers: headers}).pipe(
       tap(data => console.log(`getOffer() with id:${id} RESPONSE: `, JSON.stringify(data)),
         catchError(this.handleError))
     );
@@ -40,7 +44,9 @@ export class OfferService {
   getSwapRequest(id: number): Observable<ISwapRequest> {
     const requestUrl = `${this.swapRequestsUrl}/${id}`;
     console.log(`getSwapRequest() REQUEST URL: ${requestUrl}`);
-    return this.http.get<ISwapRequest>(`${this.swapRequestsUrl}/${id}`).pipe(
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    // headers.append('Access-Control-Allow-Origin', '*');
+    return this.http.get<ISwapRequest>(`${this.swapRequestsUrl}/${id}`, {headers: headers}).pipe(
       tap(data => console.log("getSwapRequest RESPONSE: ", JSON.stringify(data)),
         catchError(this.handleError))
     );
@@ -68,9 +74,11 @@ export class OfferService {
     if(userId != null) {
       params = params.append('userId', userId);
     }
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    // headers.append('Access-Control-Allow-Origin', '*');
     console.log(`getOffersWithQueryParams() REQUEST URL: ${requestUrl}`);
     console.log(`getOffersWithQueryParams() REQUEST QUERY PARAMS: ${JSON.stringify(params)}`);
-    return this.http.get<IOffer[]>(requestUrl, {params: params}).pipe(
+    return this.http.get<IOffer[]>(requestUrl, {params: params, headers}).pipe(
       tap(data => console.log("getOffersWithQueryParams() RESPONSE: ", JSON.stringify(data)),
         catchError(this.handleError))
     );
@@ -82,7 +90,9 @@ export class OfferService {
     if(userId != null) {
       params = params.append('requesterUserId', userId);
     }
-    return this.http.get<ISwapRequest[]>(requestUrl, {params: params}).pipe(
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    // headers.append('Access-Control-Allow-Origin', '*');
+    return this.http.get<ISwapRequest[]>(requestUrl, {params: params, headers: headers}).pipe(
       tap(data => console.log("getSwapRequestsWithQueryParams():, ", JSON.stringify(data)),
         catchError(this.handleError))
     );
@@ -91,12 +101,14 @@ export class OfferService {
   getSwapRequestsByTargetUserId(userId: number | null): Observable<ISwapRequest[]> {
     const requestUrl = this.swapRequestsUrl;
     let params = new HttpParams();
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    // headers.append('Access-Control-Allow-Origin', '*');
     if(userId != null) {
       params = params.append('targetUserId', userId);
     }
     console.log(`getSwapRequestsByTargetUserId() REQUEST URL: ${requestUrl}`);
     console.log(`getSwapRequestsByTargetUserId() REQUEST QUERY PARAMS: ${JSON.stringify(params)}`);
-    return this.http.get<ISwapRequest[]>(requestUrl, {params: params}).pipe(
+    return this.http.get<ISwapRequest[]>(requestUrl, {params: params, headers: headers}).pipe(
       tap(data => console.log("getSwapRequestsWithQueryParams() RESPONSE: ", JSON.stringify(data)),
         catchError(this.handleError))
     );
@@ -105,6 +117,7 @@ export class OfferService {
   updateOffer(offer: IOffer): Observable<IOffer> {
     const requestUrl = `${this.offerUrl}/${offer.id}`
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    // headers.append('Access-Control-Allow-Origin', '*');
     console.log(`updateOffer() REQUEST URL: ${requestUrl}`);
     console.log(`updateOffer() BODY:`, JSON.stringify(offer));
     return this.http.put(requestUrl, offer, {headers: headers})
@@ -120,6 +133,7 @@ export class OfferService {
     console.log(`saveOffer() REQUEST URL: ${requestUrl}`);
     console.log(`saveOffer() BODY:`, JSON.stringify(offer));
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    // headers.append('Access-Control-Allow-Origin', '*');
     return this.http.post<IOffer>(requestUrl, offer, {headers: headers})
       .pipe(
         tap(data => console.log('saveOffer() RESPONSE: ', JSON.stringify(data))),
@@ -130,6 +144,7 @@ export class OfferService {
   updateSwapRequest(swapRequest: ISwapRequest): Observable<ISwapRequest> {
     const requestUrl = `${this.swapRequestsUrl}/${swapRequest.id}`
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    // headers.append('Access-Control-Allow-Origin', '*');
     console.log(`updateSwapRequest() REQUEST URL: ${requestUrl}`);
     console.log(`updateSwapRequest() BODY:`, JSON.stringify(swapRequest));
     return this.http.put(requestUrl, swapRequest, {headers: headers})
@@ -145,6 +160,7 @@ export class OfferService {
     console.log(`saveSwapRequest() REQUEST URL: ${requestUrl}`);
     console.log(`saveSwapRequest() BODY:`, JSON.stringify(swapRequest));
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    // headers.append('Access-Control-Allow-Origin', '*');
     return this.http.post<ISwapRequest>(requestUrl, swapRequest, {headers: headers})
       .pipe(
         tap(data => console.log('saveSwapRequest() RESPONSE: ', JSON.stringify(data))),
@@ -170,6 +186,7 @@ export class OfferService {
     const requestUrl = `${this.offerUrl}/${id}`;
     console.log(`deleteOffer() REQUEST URL: ${requestUrl}`);
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    // headers.append('Access-Control-Allow-Origin', '*');
     return this.http.delete<IOffer>(requestUrl, {headers: headers})
       .pipe(
         tap(data => console.log('deleteOffer() RESPONSE: ', JSON.stringify(data))),
@@ -181,6 +198,7 @@ export class OfferService {
     const requestUrl = `${this.swapRequestsUrl}/${id}`;
     console.log(`deleteOffer() REQUEST URL: ${requestUrl}`);
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    // headers.append('Access-Control-Allow-Origin', '*');
     return this.http.delete<IOffer>(requestUrl, {headers: headers})
       .pipe(
         tap(data => console.log('deleteSwapRequest() RESPONSE: ', JSON.stringify(data))),

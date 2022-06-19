@@ -100,6 +100,7 @@ export class OfferListComponent implements OnInit, OnDestroy {
     this.offerSearchFormGroup.valueChanges.subscribe(value => {
       this.displayMessage = this.genericValidator.processMessages(this.offerSearchFormGroup);
     });
+    this.getOffers();
   }
 
   public getOffers() {
@@ -137,6 +138,19 @@ export class OfferListComponent implements OnInit, OnDestroy {
           this.dataSource = new MatTableDataSource<IOffer>(offers);
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
+          this.dataSource.sortingDataAccessor = (item, property) => {
+            switch (property) {
+              case 'toyName':
+                return item.toy.toyName;
+              case 'toyType':
+                return item.toy.toyType;
+              case 'ageMinimum':
+                return item.toy.ageMinimum;
+              default:
+                // @ts-ignore
+                return item[property];
+            }
+          }
         },
         error: error => this.errorMessage = error
       });

@@ -29,7 +29,7 @@ import { MainContentComponent } from './main-components/main-content/main-conten
     AppRoutingModule,
     HttpClientModule,
     OfferModule,
-    // InMemoryWebApiModule.forRoot(MockedBackendData, {dataEncapsulation: false, passThruUnknownUrl: true}),
+    InMemoryWebApiModule.forRoot(MockedBackendData, {dataEncapsulation: false, passThruUnknownUrl: true}),
     BrowserAnimationsModule,
     MaterialModule,
     FormsModule,

@@ -13,9 +13,9 @@ import {ConfigurationURLService} from "./configurationURL";
 export class AuthenticationService {
 
   //mocked backend:
-  // public backendAddress = "http://localhost:8080/api/" //localhost address of the backend (update accordingly to your server address)
+  public backendAddress = "http://localhost:8080/api/" //localhost address of the backend (update accordingly to your server address)
   //real backend:
-  public backendAddress = "https://tea.ghostila.com/" //localhost address of the backend (update accordingly to your server address)
+  // public backendAddress = "https://tea.ghostila.com/" //localhost address of the backend (update accordingly to your server address)
   public loginUrl = this.backendAddress + "login";
   public logoutUrl = this.backendAddress + "logout";
   public loggedUser: IAuth | null = null;
