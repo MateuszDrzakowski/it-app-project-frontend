@@ -27,7 +27,7 @@ export class AuthenticationService {
   }
 
   login(username: string | null, password: string | null): Observable<IAuth[]> {
-
+    const requestUrl = this.loginUrl;
     let params = new HttpParams();
     if (username != null) {
       params = params.append('username', username);
@@ -35,10 +35,12 @@ export class AuthenticationService {
     if (password != null) {
       params = params.append('password', password);
     }
-    return this.http.get<IAuth[]>(this.loginUrl, {params: params})
+    console.log(`login() REQUEST URL: ${requestUrl}`);
+    console.log(`login() REQUEST QUERY PARAMS: ${JSON.stringify(params)}`);
+    return this.http.get<IAuth[]>(requestUrl, {params: params})
       .pipe(
         tap(data => {
-            console.log("login():, ", JSON.stringify(data));
+            console.log("login() RESPONSE: ", JSON.stringify(data));
             if (data.length != 0) {
               this.loggedUser = data[0];
               this.loggedUserId = this.loggedUser.id;
@@ -53,10 +55,13 @@ export class AuthenticationService {
   }
 
   logout(): Observable<any> {
-    return this.http.get<Number>(this.logoutUrl)
+    const requestUrl = this.logoutUrl;
+
+    console.log(`login() REQUEST URL: ${requestUrl}`);
+    return this.http.get<Number>(requestUrl)
       .pipe(
         tap(data =>
-            console.log("logout():, ", JSON.stringify(data)),
+            console.log("logout() RESPONSE: ", JSON.stringify(data)),
           catchError(this.handleError))
       );
   }
@@ -65,7 +70,7 @@ export class AuthenticationService {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
       //A client side or network error occured
-      errorMessage = `An error occurred: ${error.error.message}`;
+      errorMessage = `A client side or network error occured: ${error.error.message}`;
     } else {
       //The backend returned an unsuccessful response code
       errorMessage = `Server returned code: ${error.status}, error message is: ${error.message}`;

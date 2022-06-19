@@ -17,8 +17,11 @@ export class UserService {
   }
 
   getProfile(id: number): Observable<IUser> {
+    const requestUrl = `${this.userUrl}/${id}`;
+
+    console.log(`getProfile() REQUEST URL: ${requestUrl}`);
     return this.http.get<IUser>(`${this.userUrl}/${id}`).pipe(
-      tap(data => console.log("getProfile:, ", JSON.stringify(data)),
+      tap(data => console.log("getProfile() RESPONSE: ", JSON.stringify(data)),
         catchError(this.handleError))
     );
   }
@@ -27,7 +30,7 @@ export class UserService {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
       //A client side or network error occured
-      errorMessage = `An error occurred: ${error.error.message}`;
+      errorMessage = `A client side or network error occured: ${error.error.message}`;
     } else {
       //The backend returned an unsuccessful response code
       errorMessage = `Server returned code: ${error.status}, error message is: ${error.message}`;
